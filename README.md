@@ -92,12 +92,5 @@ dotnet test ./tests/Cofrox.Core.Tests/Cofrox.Core.Tests.csproj
 - Ensure XAML follows best practices for `x:Name` and bindings.
 - Use dependency injection in `DependencyInjection.cs`.
 
-## 🤝 Project Policy
-
-- License: Harap verifikasi `LICENSE` (jika ada) atau sesuaikan dengan kebijakan organisasi.
-- Jika melakukan paket Microsoft Store, cek `PUBLISHING.md`.
-
-## 📌 Done: README diperbarui
-- Konten sudah ditambah, lebih lengkap dan terstruktur.
-- Tulisan bilingual (Inggris utama, instruksi penting Indonesia).
-
+## 📌 Implementation Note
+- This README is maintained in English and now includes an implementation note as a commit marker.
