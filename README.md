@@ -73,7 +73,7 @@ dotnet test ./tests/Cofrox.Core.Tests/Cofrox.Core.Tests.csproj
 
 ## 🛡️ Privacy and Legal
 
-- Datenschutz: tidak ada data pengguna yang dikirimkan ke server.
+- Privacy first: no user data is sent to any server.
 - [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
 - [TERMS_OF_USE.md](./TERMS_OF_USE.md)
 - [DISCLAIMER.md](./DISCLAIMER.md)
@@ -81,16 +81,16 @@ dotnet test ./tests/Cofrox.Core.Tests/Cofrox.Core.Tests.csproj
 
 ## 📝 Contributing
 
-1. Buka issue untuk diskusi masalah atau fitur.
-2. Buat branch dari `main`: `feature/<nama-fitur>`.
-3. Commit code dengan pesan jelas.
-4. Tambah tes unit untuk fitur/bugfix.
-5. Ajukan pull request.
+1. Open an issue to discuss bugs or feature requests.
+2. Create a branch from `main`: `feature/<your-feature-name>`.
+3. Commit code with descriptive messages.
+4. Add unit tests for any feature or bug fix.
+5. Open a pull request.
 
 ### Coding Style
-- Ikuti .NET naming conventions.
-- Pastikan XAML mengikuti `x:Name` dan binding terbaik.
-- Gunakan dependency injection di `DependencyInjection.cs`.
+- Follow .NET naming conventions.
+- Ensure XAML follows best practices for `x:Name` and bindings.
+- Use dependency injection in `DependencyInjection.cs`.
 
 ## 🤝 Project Policy
 
