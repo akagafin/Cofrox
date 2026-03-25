@@ -86,11 +86,3 @@ dotnet test ./tests/Cofrox.Core.Tests/Cofrox.Core.Tests.csproj
 3. Commit code with descriptive messages.
 4. Add unit tests for any feature or bug fix.
 5. Open a pull request.
-
-### Coding Style
-- Follow .NET naming conventions.
-- Ensure XAML follows best practices for `x:Name` and bindings.
-- Use dependency injection in `DependencyInjection.cs`.
-
-## 📌 Implementation Note
-- This README is maintained in English and now includes an implementation note as a commit marker.
