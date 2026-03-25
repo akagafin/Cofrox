@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+TestResults/
+packages/
+artifacts/
+src/Cofrox.App/Tools/

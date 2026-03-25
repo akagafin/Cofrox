@@ -1,0 +1,76 @@
+<Page
+    x:Class="Cofrox.App.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:components="using:Cofrox.App.Components"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="20" Padding="24">
+            <Border x:Name="DropZone"
+                    AllowDrop="True"
+                    MinHeight="220"
+                    CornerRadius="24"
+                    Background="{ThemeResource CofroxCardBrush}"
+                    DragEnter="DropZone_DragEnter"
+                    DragLeave="DropZone_DragLeave"
+                    DragOver="DropZone_DragOver"
+                    Drop="DropZone_Drop">
+                <Grid>
+                    <Rectangle x:Name="DropOutline"
+                               Margin="12"
+                               RadiusX="20"
+                               RadiusY="20"
+                               Stroke="{ThemeResource CofroxMutedOutlineBrush}"
+                               StrokeDashArray="10,6"
+                               StrokeThickness="2" />
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                        <FontIcon Glyph="&#xE8B8;" FontSize="42" Foreground="{StaticResource CofroxAccentBrush}" />
+                        <TextBlock HorizontalAlignment="Center" Style="{StaticResource DisplayTextStyle}" Text="Drop your files here" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Text="Any format, fully offline, right on this device." />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <InfoBar IsOpen="{Binding IsNoticeOpen}"
+                     Message="{Binding NoticeMessage}"
+                     Severity="{Binding NoticeSeverity}" />
+
+            <CommandBar DefaultLabelPosition="Right">
+                <AppBarButton Icon="Add" Label="Add Files" Command="{Binding PickFilesCommand}" />
+                <AppBarSeparator />
+                <AppBarButton Icon="Switch" Label="Convert All" Command="{Binding ConvertAllCommand}" />
+                <AppBarButton Icon="Delete" Label="Clear All" Command="{Binding ClearAllCommand}" />
+            </CommandBar>
+
+            <StackPanel Spacing="12" Visibility="{Binding QueueItems.Count, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}">
+                <TextBlock Style="{StaticResource SectionHeadingStyle}" Text="Queue" />
+                <ListView ItemsSource="{Binding QueueItems}"
+                          SelectionMode="None"
+                          IsItemClickEnabled="False"
+                          ScrollViewer.VerticalScrollMode="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <components:FileCard />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center"
+                        Spacing="8"
+                        Visibility="{Binding QueueItems.Count, Converter={StaticResource BoolToVisibilityConverter}}">
+                <FontIcon Glyph="&#xE898;" FontSize="48" />
+                <TextBlock HorizontalAlignment="Center" Style="{StaticResource SectionHeadingStyle}" Text="Drop your files here - any format" />
+                <TextBlock HorizontalAlignment="Center"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Text="FFmpeg, Pandoc, ImageMagick, and data engines stay on-device after install." />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
