@@ -22,8 +22,8 @@ Cofrox is a native WinUI 3 desktop app that provides secure, offline file conver
 ## 🛠️ Requirements
 
 - Windows 10 1809 or newer (Windows 11 recommended)
-- Visual Studio 2022 17.8 or later
-- .NET 8 SDK
+- Visual Studio 2026 (current release) with the **.NET desktop development** workload
+- .NET 10 SDK (see `global.json`; e.g. 10.0.201+)
 - Windows App SDK 1.5 or later
 - Windows 10 SDK 17763+
 
@@ -49,11 +49,11 @@ cd cofrox
 dotnet restore
 ```
 
-3. Open `Cofrox.sln` in Visual Studio, select `x64` build, then `Debug` or `Release`.
+3. Open `Cofrox.sln` in Visual Studio 2026, select `x64` build, then `Debug` or `Release`.
 
 ## 🏗️ Build and Run
 
-### Using Visual Studio
+### Using Visual Studio 2026
 - Set `Cofrox.App` as startup project.
 - Use `Debug` for local testing, `Release` for publication.
 - Build and run.
@@ -61,7 +61,7 @@ dotnet restore
 ### CLI
 
 ```powershell
-dotnet build ./Cofrox.sln -c Release -r win10-x64
+dotnet build ./Cofrox.sln -c Release -p:Platform=x64 -r win-x64
 dotnet run --project ./src/Cofrox.App/Cofrox.App.csproj
 ```
 

@@ -212,13 +212,20 @@ public sealed partial class FileCardViewModel : ObservableObject
         var qualityMode = Options.FirstOrDefault(static option => option.Key == "quality_mode")?.SelectedChoiceKey ?? "crf";
         var audioMode = Options.FirstOrDefault(static option => option.Key == "audio_mode")?.SelectedChoiceKey ?? "keep";
         var resizeMode = Options.FirstOrDefault(static option => option.Key == "resize_mode")?.SelectedChoiceKey ?? "none";
+        var videoPreset = Options.FirstOrDefault(static option => option.Key == "video_preset")?.SelectedChoiceKey ?? "custom";
+        var videoEncoder = Options.FirstOrDefault(static option => option.Key == "video_encoder")?.SelectedChoiceKey ?? "software";
+        var isVideoTarget = SelectedTarget?.Family is FileFamily.Video;
+        var presetCustom = string.Equals(videoPreset, "custom", StringComparison.OrdinalIgnoreCase);
 
         foreach (var option in Options)
         {
             option.IsVisible = option.Key switch
             {
-                "target_bitrate" => qualityMode == "bitrate",
-                "quality_value" => qualityMode != "bitrate",
+                "target_bitrate" => qualityMode == "bitrate" && presetCustom && isVideoTarget,
+                "quality_value" => qualityMode != "bitrate" && presetCustom && isVideoTarget,
+                "resolution" or "video_codec" or "quality_mode" or "frame_rate" => presetCustom && isVideoTarget,
+                "encoding_speed" => presetCustom && isVideoTarget && string.Equals(videoEncoder, "software", StringComparison.OrdinalIgnoreCase),
+                "video_encoder" => isVideoTarget,
                 "audio_codec" or "audio_bitrate" => audioMode == "reencode",
                 "bitrate" => !isLosslessAudio,
                 "width" or "height" or "resample_filter" => resizeMode != "none",

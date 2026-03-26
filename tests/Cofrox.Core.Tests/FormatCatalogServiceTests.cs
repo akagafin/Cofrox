@@ -23,6 +23,9 @@ public sealed class FormatCatalogServiceTests
         var options = _service.GetOptions("mov", "mp4");
 
         Assert.Contains(options, static item => item.Key == "video_codec");
+        Assert.Contains(options, static item => item.Key == "video_preset");
+        Assert.Contains(options, static item => item.Key == "video_encoder");
+        Assert.Contains(options, static item => item.Key == "deinterlace");
         Assert.Contains(options, static item => item.Key == "speed");
     }
 }

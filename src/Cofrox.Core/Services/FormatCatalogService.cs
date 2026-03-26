@@ -163,6 +163,30 @@ public sealed class FormatCatalogService : IFormatCatalog
 
         return
         [
+            new("video_preset", "Preset (HandBrake-style)", "Quick profiles like HandBrake — pick Custom for full manual control.", OptionControlType.ComboBox, "custom", ChoiceSet(
+                ("custom", "Custom (full control)"),
+                ("hb_web_720p", "Web / Small file — 720p H.264"),
+                ("hb_fast_1080p30", "Fast 1080p30 — H.264"),
+                ("hb_hq_1080p30", "HQ 1080p30 — H.264"),
+                ("hb_super_hq_1080p", "Super HQ 1080p — H.264"),
+                ("hb_anime_1080p", "Animation 1080p — H.264"),
+                ("hb_fast_4k", "Fast 4K — HEVC"),
+                ("hb_hq_4k", "HQ 4K — HEVC"))),
+            new("video_encoder", "Encoder", "Software (libx264/x265) or GPU encoders when available (same idea as HandBrake).", OptionControlType.ComboBox, "software", ChoiceSet(
+                ("software", "Software (x264 / x265 / VP9 / AV1)"),
+                ("nvenc", "NVIDIA NVENC (H.264 / HEVC / AV1)"),
+                ("qsv", "Intel Quick Sync"),
+                ("amf", "AMD AMF"))),
+            new("encoding_speed", "Encoder preset (software)", "x264/x265 speed vs compression — like HandBrake’s Encoder Preset slider (software only).", OptionControlType.ComboBox, "medium", ChoiceSet(
+                ("ultrafast", "Ultrafast"),
+                ("fast", "Fast"),
+                ("medium", "Medium"),
+                ("slow", "Slow"),
+                ("slower", "Slower"))),
+            new("deinterlace", "Deinterlace", "Remove combing from interlaced sources (HandBrake Deinterlace).", OptionControlType.ComboBox, "none", ChoiceSet(
+                ("none", "None"),
+                ("yadif", "Yadif"),
+                ("bwdif", "Bwdif"))),
             new("resolution", "Resolution", "Keep original or resize the output.", OptionControlType.ComboBox, "original", ChoiceSet(
                 ("original", "Original"),
                 ("4320p", "7680x4320 (8K)"),
