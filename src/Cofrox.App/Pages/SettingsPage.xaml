@@ -75,37 +75,21 @@
 
             <Expander x:Name="LegalExpander" IsExpanded="True">
                 <StackPanel Spacing="12">
-                    <Button HorizontalAlignment="Stretch"
-                            Click="PrivacyPolicyButton_Click">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <SymbolIcon Symbol="Protect" />
-                            <TextBlock x:Name="PrivacyPolicyText" />
-                        </StackPanel>
-                    </Button>
+                    <Button x:Name="PrivacyPolicyButton"
+                            HorizontalAlignment="Stretch"
+                            Click="PrivacyPolicyButton_Click" />
 
-                    <Button HorizontalAlignment="Stretch"
-                            Click="TermsOfUseButton_Click">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <SymbolIcon Symbol="Document" />
-                            <TextBlock x:Name="TermsOfUseText" />
-                        </StackPanel>
-                    </Button>
+                    <Button x:Name="TermsOfUseButton"
+                            HorizontalAlignment="Stretch"
+                            Click="TermsOfUseButton_Click" />
 
-                    <Button HorizontalAlignment="Stretch"
-                            Click="LicensesButton_Click">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <SymbolIcon Symbol="Library" />
-                            <TextBlock x:Name="LicensesText" />
-                        </StackPanel>
-                    </Button>
+                    <Button x:Name="LicensesButton"
+                            HorizontalAlignment="Stretch"
+                            Click="LicensesButton_Click" />
 
-                    <Button HorizontalAlignment="Stretch"
-                            Click="DisclaimerButton_Click">
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <SymbolIcon Symbol="Help" />
-                            <TextBlock x:Name="DisclaimerText" />
-                        </StackPanel>
-                    </Button>
+                    <Button x:Name="DisclaimerButton"
+                            HorizontalAlignment="Stretch"
+                            Click="DisclaimerButton_Click" />
                 </StackPanel>
             </Expander>
 

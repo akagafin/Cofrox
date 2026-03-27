@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'Cofrox.Core'">
+    <GeneratedBuildInfoFile>$(IntermediateOutputPath)Generated\BuildInfo.g.cs</GeneratedBuildInfoFile>
+    <ComputedBuildDate>$([System.DateTime]::Now.ToString('MMMM dd, yyyy'))</ComputedBuildDate>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'Cofrox.Core'">
+    <Compile Include="$(GeneratedBuildInfoFile)" Visible="false" />
+  </ItemGroup>
+
+  <Target Name="GenerateBuildInfo" BeforeTargets="CoreCompile" Condition="'$(MSBuildProjectName)' == 'Cofrox.Core'">
+    <MakeDir Directories="$([System.IO.Path]::GetDirectoryName('$(GeneratedBuildInfoFile)'))" />
+    <WriteLinesToFile
+      File="$(GeneratedBuildInfoFile)"
+      Overwrite="true"
+      Lines="namespace Cofrox.Core.Constants;&#x0A;{&#x0A;    public static class BuildInfo&#x0A;    {&#x0A;        public static readonly string BuildDate = &quot;$(ComputedBuildDate)&quot;%3B&#x0A;    }&#x0A;}" />
+  </Target>
+</Project>

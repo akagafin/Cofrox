@@ -27,14 +27,14 @@ public sealed partial class HomePage : Page
     private void DropZone_DragEnter(object sender, DragEventArgs e)
     {
         ViewModel.IsDropOver = true;
-        DropOutline.Stroke = (Brush)Application.Current.Resources["CofroxAccentBrush"];
+        DropOutline.Stroke = (Brush)Microsoft.UI.Xaml.Application.Current.Resources["CofroxAccentBrush"];
         e.AcceptedOperation = DataPackageOperation.Copy;
     }
 
     private void DropZone_DragLeave(object sender, DragEventArgs e)
     {
         ViewModel.IsDropOver = false;
-        DropOutline.Stroke = (Brush)Application.Current.Resources["CofroxMutedOutlineBrush"];
+        DropOutline.Stroke = (Brush)Microsoft.UI.Xaml.Application.Current.Resources["CofroxMutedOutlineBrush"];
     }
 
     private void DropZone_DragOver(object sender, DragEventArgs e)
@@ -45,7 +45,7 @@ public sealed partial class HomePage : Page
     private async void DropZone_Drop(object sender, DragEventArgs e)
     {
         ViewModel.IsDropOver = false;
-        DropOutline.Stroke = (Brush)Application.Current.Resources["CofroxMutedOutlineBrush"];
+        DropOutline.Stroke = (Brush)Microsoft.UI.Xaml.Application.Current.Resources["CofroxMutedOutlineBrush"];
 
         if (!e.DataView.Contains(StandardDataFormats.StorageItems))
         {

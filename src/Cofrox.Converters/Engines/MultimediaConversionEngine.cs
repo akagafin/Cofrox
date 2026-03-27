@@ -34,7 +34,7 @@ public sealed partial class MultimediaConversionEngine(
             return new ConversionResult
             {
                 Status = ConversionStatus.Failed,
-                Message = "Bundled FFmpeg binary was not found.",
+                Message = "FFmpeg was not found. Install it separately or place ffmpeg.exe under Tools\\ffmpeg.",
                 Duration = TimeSpan.Zero,
             };
         }

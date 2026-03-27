@@ -38,7 +38,7 @@ public sealed class AccentColorService
             CurrentAccentColor = ColorHelper.FromArgb(255, 0, 180, 216);
         }
 
-        Application.Current.Resources["CofroxAccentColor"] = CurrentAccentColor;
-        Application.Current.Resources["CofroxAccentBrush"] = new SolidColorBrush(CurrentAccentColor);
+        Microsoft.UI.Xaml.Application.Current.Resources["CofroxAccentColor"] = CurrentAccentColor;
+        Microsoft.UI.Xaml.Application.Current.Resources["CofroxAccentBrush"] = new SolidColorBrush(CurrentAccentColor);
     }
 }

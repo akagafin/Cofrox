@@ -4,11 +4,12 @@ Cofrox also redistributes or interoperates with third-party software. See
 THIRD_PARTY_LICENSES.txt for the full inventory, license analysis, and
 redistribution obligations.
 
-Important notices for the current repository contents:
+Important notices for the default app build and the optional local tool bundle:
 
 1. FFmpeg
-   The bundled FFmpeg binary currently present under
-   src/Cofrox.App/Tools/ffmpeg was built with --enable-gpl and
+   The default `Portable` publish profile does not ship FFmpeg. If you add
+   FFmpeg through the optional local `Tools` folder, the developer download
+   script currently pulls a build compiled with --enable-gpl and
    --enable-version3, and with GPL-triggering libraries such as libx264 and
    libx265. That binary is not an LGPL-only build. If you redistribute that
    exact binary, you must satisfy the GPLv3 redistribution requirements for the
@@ -16,19 +17,20 @@ Important notices for the current repository contents:
    build information for that binary.
 
 2. Pandoc
-   The bundled Pandoc executable is GPL-2.0-or-later software. If you
-   redistribute the binary, preserve its notices and make the corresponding
-   source code for the exact version available in the distribution workflow.
+   The default `Portable` publish profile does not ship Pandoc. If you add
+   Pandoc through the optional local `Tools` folder, preserve its notices and
+   make the corresponding source code for the exact redistributed version
+   available in the distribution workflow.
 
 3. ImageMagick
-   The bundled ImageMagick tools include their own LICENSE.txt and NOTICE.txt.
-   Preserve both files in any packaged distribution and keep attribution to
-   ImageMagick Studio LLC.
+   If ImageMagick is bundled through the optional local `Tools` folder, keep
+   its LICENSE.txt and NOTICE.txt files in any packaged distribution and
+   preserve attribution to ImageMagick Studio LLC.
 
 4. 7-Zip
-   The bundled 7-Zip executable includes LGPL code, BSD-licensed code, and the
-   unRAR restriction for RAR decompression support. Preserve the upstream
-   license information with any redistribution.
+   If 7-Zip is bundled through the optional local `Tools` folder, preserve the
+   upstream license information and any unRAR restriction notice with
+   redistribution.
 
 5. Optional external integrations
    Ghostscript and LibreOffice are referenced by the codebase as optional

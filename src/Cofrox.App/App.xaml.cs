@@ -12,7 +12,7 @@ using Windows.Storage;
 
 namespace Cofrox.App;
 
-public partial class App : Application
+public partial class App : Microsoft.UI.Xaml.Application
 {
     private static IHost? _host;
 

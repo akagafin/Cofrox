@@ -4,4 +4,7 @@ obj/
 TestResults/
 packages/
 artifacts/
+.appdata/
+.dotnet/
+.nuget/
 src/Cofrox.App/Tools/

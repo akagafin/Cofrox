@@ -21,7 +21,7 @@ public sealed class FontConversionEngine(
             return new ConversionResult
             {
                 Status = ConversionStatus.Warning,
-                Message = "Font conversion is scaffolded, but no bundled fonttools binary was found.",
+                Message = "Font conversion needs fonttools. Install it separately or place fonttools.exe under Tools\\fonttools.",
                 Duration = TimeSpan.Zero,
             };
         }

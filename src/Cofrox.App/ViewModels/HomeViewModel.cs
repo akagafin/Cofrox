@@ -56,7 +56,7 @@ public sealed partial class HomeViewModel(
         IsNoticeOpen = false;
     }
 
-    public async Task ImportFilesAsync(IEnumerable<string> paths)
+    public Task ImportFilesAsync(IEnumerable<string> paths)
     {
         var profile = systemProfileService.GetCurrent();
         foreach (var path in paths.Where(File.Exists))
@@ -91,6 +91,8 @@ public sealed partial class HomeViewModel(
             NoticeMessage = $"{QueueItems.Count} file(s) ready to convert.";
             IsNoticeOpen = true;
         }
+
+        return Task.CompletedTask;
     }
 
     private void RemoveQueueItem(FileCardViewModel item)

@@ -2,17 +2,18 @@ COFROX THIRD-PARTY LICENSE INVENTORY
 Updated: March 27, 2026
 
 This file lists the third-party components that are actually referenced by the
-current Cofrox source tree and/or bundled in the repository. It is not a full
-SBOM. It is a practical redistribution and compliance inventory for release
+current Cofrox source tree and, when applicable, the optional external tool
+bundle that can be produced from a local Tools folder. It is not a full SBOM.
+It is a practical redistribution and compliance inventory for release
 engineering.
 
 ========================================================================
-DISTRIBUTED WITH THE CURRENT REPOSITORY
+REDISTRIBUTED BY DEFAULT VS OPTIONAL TOOL BUNDLE
 ========================================================================
 
 1. FFmpeg
    Version:
-   - Bundled binary reports: N-123619-g44ad73031d-20260325
+   - Optional local bundle reports: N-123619-g44ad73031d-20260325
    License:
    - Effective license for the bundled binary: GPL-3.0-or-later
    Short description:
@@ -20,7 +21,7 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
    Attribution:
    - Copyright (c) 2000-2026 the FFmpeg developers
    Why this matters:
-   - The current binary was built with --enable-gpl, --enable-version3,
+   - The developer download script currently pulls a binary built with --enable-gpl, --enable-version3,
      --enable-libx264, --enable-libx265, --enable-libxvid, and other options
      that move the binary out of the default LGPL posture.
    Obligations:
@@ -29,13 +30,13 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
    - Preserve build instructions/configuration for the shipped binary.
    - Do not describe this bundled binary as "LGPL-only" in product materials.
    Risk:
-   - Highest legal risk in the current repo. Replace with a self-built LGPL-only
+   - Highest legal risk in the optional offline tool bundle. Replace with a self-built LGPL-only
      FFmpeg if the release goal is simple MIT distribution and Microsoft Store
      packaging without GPL redistribution overhead.
 
 2. ImageMagick CLI
    Version:
-   - Bundled binary reports: 7.1.2-18
+   - Optional local bundle reports: 7.1.2-18
    License:
    - ImageMagick License
    Short description:
@@ -52,7 +53,7 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
 
 3. Pandoc
    Version:
-   - Bundled binary reports: 3.9.0.2
+   - Optional local bundle reports: 3.9.0.2
    License:
    - GPL-2.0-or-later
    Short description:
@@ -71,7 +72,7 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
 
 4. 7-Zip
    Version:
-   - Bundled binary reports: 25.00
+   - Optional local bundle reports: 25.00
    License:
    - Primarily LGPL-2.1-or-later, with BSD-3-Clause and BSD-2-Clause portions,
      plus the unRAR license restriction for RAR support
@@ -102,7 +103,7 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
 
 6. Microsoft.Extensions.DependencyInjection
    Version:
-   - 9.0.0
+- 8.0.0
    License:
    - MIT
    Short description:
@@ -116,7 +117,7 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
 
 7. Microsoft.Extensions.DependencyInjection.Abstractions
    Version:
-   - 9.0.0
+- 8.0.0
    License:
    - MIT
    Short description:
@@ -130,7 +131,7 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
 
 8. Microsoft.Extensions.Hosting
    Version:
-   - 9.0.0
+- 8.0.0
    License:
    - MIT
    Short description:
@@ -159,7 +160,7 @@ DISTRIBUTED WITH THE CURRENT REPOSITORY
 
 10. Microsoft.Data.Sqlite
     Version:
-    - 9.0.0
+- 8.0.0
     License:
     - MIT
     Short description:

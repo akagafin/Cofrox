@@ -81,7 +81,7 @@ public static class LegalDocumentRenderer
             IsTextSelectionEnabled = true,
         };
 
-        if (Application.Current.Resources[styleKey] is Style style)
+        if (Microsoft.UI.Xaml.Application.Current.Resources[styleKey] is Style style)
         {
             textBlock.Style = style;
         }

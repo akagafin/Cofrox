@@ -2,8 +2,8 @@
 
 ## Build Configuration
 
-- SDK: .NET 10 (`global.json`)
-- IDE: Visual Studio 2026
+- SDK: .NET 8 (`global.json`)
+- IDE: Visual Studio 2022
 - Platform: `x64`
 - App model: WinUI 3 desktop
 - Packaging target: MSIX for Store, unpackaged for internal debug/portable distribution

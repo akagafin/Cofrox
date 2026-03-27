@@ -82,7 +82,7 @@ public sealed class DocumentConversionEngine(
         return new ConversionResult
         {
             Status = ConversionStatus.Warning,
-            Message = "Document conversion is scaffolded, but the required bundled engines are not present yet.",
+            Message = "No supported document engine was found. Install LibreOffice or Pandoc, or place them under Tools\\libreoffice / Tools\\pandoc.",
             Duration = DateTimeOffset.Now - startedAt,
         };
     }

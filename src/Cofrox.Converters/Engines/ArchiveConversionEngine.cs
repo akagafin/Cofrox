@@ -21,7 +21,7 @@ public sealed class ArchiveConversionEngine(
             return new ConversionResult
             {
                 Status = ConversionStatus.Failed,
-                Message = "Bundled 7-Zip binary was not found.",
+                Message = "7-Zip was not found. Install it separately or place 7z.exe under Tools\\7zip.",
                 Duration = TimeSpan.Zero,
             };
         }

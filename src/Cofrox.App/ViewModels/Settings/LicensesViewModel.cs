@@ -1,39 +1,33 @@
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Cofrox.App.Models;
 using Cofrox.App.Services;
+using Cofrox.Domain.Interfaces;
 
 namespace Cofrox.App.ViewModels.Settings;
 
-public sealed partial class LicensesViewModel(
-    AppResourceService appResourceService,
-    ClipboardService clipboardService) : ObservableObject
+public sealed partial class LicensesViewModel : ObservableObject
 {
-    public ObservableCollection<LegalLibraryNotice> Notices { get; } =
-    [
-        CreateNotice("FFmpeg", "6.x", "LGPL-2.1", "The FFmpeg Project", "LegalLicenseTextLgpl21", LegalBadgeKind.Lgpl, "LegalLicenseNoteFfmpegApp"),
-        CreateNotice("Magick.NET (ImageMagick)", "13.x", "Apache-2.0", "Dirk Lemstra", "LegalLicenseTextApache20", LegalBadgeKind.Permissive),
-        CreateNotice("LibRaw", "0.21.x", "LGPL-2.1", "LibRaw LLC", "LegalLicenseTextLgpl21", LegalBadgeKind.Lgpl),
-        CreateNotice("Ghostscript", "10.x", "AGPL-3.0", "Artifex Software Inc.", "LegalLicenseTextAgpl30", LegalBadgeKind.Agpl, "LegalLicenseNoteGhostscriptApp"),
-        CreateNotice("Pandoc", "3.x", "GPL-2.0", "John MacFarlane", "LegalLicenseTextGpl20", LegalBadgeKind.Gpl),
-        CreateNotice("LibreOffice SDK", "24.x", "LGPL-2.1", "The Document Foundation", "LegalLicenseTextLgpl21", LegalBadgeKind.Lgpl),
-        CreateNotice("Syncfusion Document SDK", "Community", "Syncfusion Community License", "Syncfusion Inc.", "LegalLicenseTextSyncfusionCommunity", LegalBadgeKind.Community),
-        CreateNotice("7-Zip / LZMA SDK", "23.x", "LGPL-2.1", "Igor Pavlov", "LegalLicenseTextLgpl21", LegalBadgeKind.Lgpl),
-        CreateNotice("SevenZipSharp", "latest", "LGPL-3.0", "Markovtsev Vadim", "LegalLicenseTextLgpl30", LegalBadgeKind.Lgpl),
-        CreateNotice("ZstdNet", "latest", "BSD-3-Clause", "SKB Kontur", "LegalLicenseTextBsd3Clause", LegalBadgeKind.Permissive),
-        CreateNotice("K4os.Compression.LZ4", "latest", "MIT", "Milosz Krajewski", "LegalLicenseTextMit", LegalBadgeKind.Permissive),
-        CreateNotice("AssimpNet", "latest", "MIT", "Nicholas Woodfield", "LegalLicenseTextMit", LegalBadgeKind.Permissive),
-        CreateNotice("CsvHelper", "latest", "MS-PL / Apache-2.0", "Josh Close", "LegalLicenseTextMsPlApache20", LegalBadgeKind.Permissive),
-        CreateNotice("YamlDotNet", "latest", "MIT", "Antoine Aubry", "LegalLicenseTextMit", LegalBadgeKind.Permissive),
-        CreateNotice("Newtonsoft.Json", "latest", "MIT", "James Newton-King", "LegalLicenseTextMit", LegalBadgeKind.Permissive),
-        CreateNotice("CommunityToolkit.Mvvm", "latest", "MIT", "Microsoft Corporation", "LegalLicenseTextMit", LegalBadgeKind.Permissive),
-        CreateNotice("Microsoft.Extensions.DependencyInjection", "latest", "MIT", "Microsoft Corporation", "LegalLicenseTextMit", LegalBadgeKind.Permissive),
-        CreateNotice("Microsoft.Data.Sqlite", "latest", "MIT", "Microsoft Corporation", "LegalLicenseTextMit", LegalBadgeKind.Permissive),
-        CreateNotice("Markdig", "latest", "BSD-2-Clause", "Alexandre Mutel", "LegalLicenseTextBsd2Clause", LegalBadgeKind.Permissive),
-    ];
+    private readonly string _bundledToolsRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "Tools"));
+    private readonly AppResourceService _appResourceService;
+    private readonly ClipboardService _clipboardService;
 
-    public string IntroText => appResourceService.GetString("LegalLicensesIntro");
+    public ObservableCollection<LegalLibraryNotice> Notices { get; } = [];
+
+    public string IntroText => _appResourceService.GetString("LegalLicensesIntro");
+
+    public LicensesViewModel(
+        AppResourceService appResourceService,
+        ClipboardService clipboardService,
+        IExternalToolLocator toolLocator)
+    {
+        _appResourceService = appResourceService;
+        _clipboardService = clipboardService;
+        AddManagedNotices(appResourceService);
+        AddBundledToolNotices(appResourceService, toolLocator);
+    }
 
     [RelayCommand]
     private void CopyAllNotices()
@@ -48,16 +42,159 @@ public sealed partial class LicensesViewModel(
                     (!string.IsNullOrWhiteSpace(notice.Note) ? $"{notice.Note}{Environment.NewLine}" : string.Empty) +
                     notice.LicenseText));
 
-        clipboardService.CopyText(content);
+        _clipboardService.CopyText(content);
     }
 
-    private LegalLibraryNotice CreateNotice(
+    private void AddManagedNotices(AppResourceService resourceService)
+    {
+        AddNotice(CreateNotice("Microsoft.WindowsAppSDK", "1.5.240311000", "MIT", "Microsoft Corporation", "LegalNoticeTextMit", LegalBadgeKind.Permissive, resourceService));
+        AddNotice(CreateNotice("CommunityToolkit.Mvvm", "8.4.0", "MIT", "Microsoft Corporation", "LegalNoticeTextMit", LegalBadgeKind.Permissive, resourceService));
+        AddNotice(CreateNotice("Microsoft.Extensions.DependencyInjection", "8.0.0", "MIT", "Microsoft Corporation", "LegalNoticeTextMit", LegalBadgeKind.Permissive, resourceService));
+        AddNotice(CreateNotice("Microsoft.Extensions.DependencyInjection.Abstractions", "8.0.0", "MIT", "Microsoft Corporation", "LegalNoticeTextMit", LegalBadgeKind.Permissive, resourceService));
+        AddNotice(CreateNotice("Microsoft.Extensions.Hosting", "8.0.0", "MIT", "Microsoft Corporation", "LegalNoticeTextMit", LegalBadgeKind.Permissive, resourceService));
+        AddNotice(CreateNotice("Microsoft.Data.Sqlite", "8.0.0", "MIT", "Microsoft Corporation", "LegalNoticeTextMit", LegalBadgeKind.Permissive, resourceService));
+        AddNotice(CreateNotice("CsvHelper", "33.0.1", "MS-PL / Apache-2.0", "Josh Close", "LegalNoticeTextMsPlApache", LegalBadgeKind.Permissive, resourceService));
+        AddNotice(CreateNotice("YamlDotNet", "15.1.2", "MIT", "Antoine Aubry", "LegalNoticeTextMit", LegalBadgeKind.Permissive, resourceService));
+    }
+
+    private void AddBundledToolNotices(AppResourceService resourceService, IExternalToolLocator toolLocator)
+    {
+        AddBundledToolNotice(
+            toolLocator,
+            "ffmpeg",
+            "FFmpeg",
+            "GPL/LGPL varies by bundled binary",
+            "The FFmpeg Project",
+            "LegalNoticeTextFfmpeg",
+            LegalBadgeKind.Community,
+            resourceService,
+            "LegalLicenseNoteFfmpegApp");
+
+        AddBundledToolNotice(
+            toolLocator,
+            "magick",
+            "ImageMagick CLI",
+            "ImageMagick License",
+            "ImageMagick Studio LLC",
+            "LegalNoticeTextImageMagick",
+            LegalBadgeKind.Permissive,
+            resourceService,
+            "LegalLicenseNoteImageMagickApp");
+
+        AddBundledToolNotice(
+            toolLocator,
+            "pandoc",
+            "Pandoc",
+            "GPL-2.0-or-later",
+            "John MacFarlane and contributors",
+            "LegalNoticeTextPandoc",
+            LegalBadgeKind.Gpl,
+            resourceService,
+            "LegalLicenseNotePandocApp");
+
+        AddBundledToolNotice(
+            toolLocator,
+            "7zip",
+            "7-Zip CLI",
+            "LGPL-2.1-or-later",
+            "Igor Pavlov",
+            "LegalNoticeTextSevenZip",
+            LegalBadgeKind.Lgpl,
+            resourceService,
+            "LegalLicenseNoteSevenZipApp");
+
+        AddBundledToolNotice(
+            toolLocator,
+            "libreoffice",
+            "LibreOffice",
+            "Multiple licenses",
+            "The Document Foundation and contributors",
+            "LegalNoticeTextLibreOffice",
+            LegalBadgeKind.Community,
+            resourceService,
+            "LegalLicenseNoteLibreOfficeApp");
+
+        AddBundledToolNotice(
+            toolLocator,
+            "ghostscript",
+            "Ghostscript",
+            "AGPL-3.0 or commercial",
+            "Artifex Software Inc.",
+            "LegalNoticeTextGhostscript",
+            LegalBadgeKind.Agpl,
+            resourceService,
+            "LegalLicenseNoteGhostscriptApp");
+    }
+
+    private void AddBundledToolNotice(
+        IExternalToolLocator toolLocator,
+        string logicalName,
+        string name,
+        string licenseType,
+        string copyright,
+        string licenseTextKey,
+        LegalBadgeKind badgeKind,
+        AppResourceService resourceService,
+        string? noteKey = null)
+    {
+        var bundledPath = ResolveBundledToolPath(toolLocator, logicalName);
+        if (bundledPath is null)
+        {
+            return;
+        }
+
+        AddNotice(CreateNotice(
+            name,
+            ResolveVersion(bundledPath),
+            licenseType,
+            copyright,
+            licenseTextKey,
+            badgeKind,
+            resourceService,
+            noteKey));
+    }
+
+    private void AddNotice(LegalLibraryNotice notice)
+    {
+        Notices.Add(notice);
+    }
+
+    private string? ResolveBundledToolPath(IExternalToolLocator toolLocator, string logicalName)
+    {
+        var resolved = toolLocator.Resolve(logicalName);
+        if (string.IsNullOrWhiteSpace(resolved))
+        {
+            return null;
+        }
+
+        var fullPath = Path.GetFullPath(resolved);
+        var bundledRoot = _bundledToolsRoot.EndsWith(Path.DirectorySeparatorChar)
+            ? _bundledToolsRoot
+            : _bundledToolsRoot + Path.DirectorySeparatorChar;
+
+        return fullPath.StartsWith(bundledRoot, StringComparison.OrdinalIgnoreCase)
+            ? fullPath
+            : null;
+    }
+
+    private static string ResolveVersion(string path)
+    {
+        var versionInfo = FileVersionInfo.GetVersionInfo(path);
+        return !string.IsNullOrWhiteSpace(versionInfo.ProductVersion)
+            ? versionInfo.ProductVersion
+            : !string.IsNullOrWhiteSpace(versionInfo.FileVersion)
+                ? versionInfo.FileVersion
+                : "Bundled executable";
+    }
+
+    private static LegalLibraryNotice CreateNotice(
         string name,
         string version,
         string licenseType,
         string copyright,
         string licenseTextKey,
         LegalBadgeKind badgeKind,
+        AppResourceService resourceService,
         string? noteKey = null) =>
         new()
         {
@@ -65,8 +202,8 @@ public sealed partial class LicensesViewModel(
             Version = version,
             LicenseType = licenseType,
             Copyright = copyright,
-            LicenseText = appResourceService.GetString(licenseTextKey),
-            Note = string.IsNullOrWhiteSpace(noteKey) ? null : appResourceService.GetString(noteKey),
+            LicenseText = resourceService.GetString(licenseTextKey),
+            Note = string.IsNullOrWhiteSpace(noteKey) ? null : resourceService.GetString(noteKey),
             BadgeKind = badgeKind,
         };
 }

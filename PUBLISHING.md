@@ -2,18 +2,22 @@
 
 ## Build and automated tests
 
-The repo includes `global.json` so the **.NET 10 SDK** (for example `10.0.201`)
+The repo includes `global.json` so the **.NET 8 SDK** (for example `8.0.419`)
 is selected when multiple SDKs are installed. The WinUI app targets **x64**
 only, so use `-p:Platform=x64` for CLI builds.
 
 - **Libraries and tests** can be built and executed from the CLI.
 - **WinUI (`Cofrox.App`)** still relies on the WinUI/XAML toolchain that is
-  most reliably exercised from Visual Studio 2026 with the .NET desktop
+  most reliably exercised from Visual Studio 2022 with the .NET desktop
   development workload and Windows App SDK support.
 
 ## Bundled tools
 
-Place offline conversion binaries under:
+Default publish profiles do **not** redistribute external engines. This keeps
+Store/default output legally safer. If you intentionally want an offline tool
+bundle, use `PortableWithBundledTools` and audit the resulting package first.
+
+Optional engine locations:
 
 - `src/Cofrox.App/Tools/ffmpeg/ffmpeg.exe`
 - `src/Cofrox.App/Tools/pandoc/pandoc.exe` or a versioned subfolder that
@@ -38,8 +42,11 @@ Place offline conversion binaries under:
 
 - `WindowsPackageType=None` is enabled so the project can run unpackaged during
   development.
-- For Store-ready MSIX, add a packaging project in Visual Studio 2026 and point
-  it at `src/Cofrox.App`.
+- Use the default `Portable` publish profile for a self-contained, no-tools
+  build that is suitable as a baseline for Store packaging work.
+- Use `PortableWithBundledTools` only for audited offline distributions.
+- Complete the MSIX packaging flow in Visual Studio 2022 and validate the final
+  package with the Windows App Certification Kit before submission.
 - Keep the runtime target at `win-x64`.
 - Review [STORE_COMPLIANCE.md](./STORE_COMPLIANCE.md) and
   [RELEASE_CHECKLIST.md](./RELEASE_CHECKLIST.md) before submission.

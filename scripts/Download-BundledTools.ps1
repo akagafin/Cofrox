@@ -1,21 +1,25 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
-  Downloads FFmpeg, Pandoc, ImageMagick (portable), 7-Zip CLI, and optionally LibreOffice MSI
-  into src/Cofrox.App/Tools so the app runs offline. Tools/ is gitignored.
+  Downloads optional external engines into src/Cofrox.App/Tools. Tools/ is gitignored.
+  Default/Store-safe builds should avoid bundling copyleft executables unless they
+  have been reviewed for redistribution.
 
   Ghostscript: official Windows installers are not simple archives; install GPL Ghostscript once
   (winget install Ghostscript.Ghostscript) or the app will use Program Files\gs\*\bin\gswin64c.exe.
 
-  After this script + a Release publish with the Portable profile, the output folder is self-contained
-  (.NET 10 runtime included) with bundled engines — copy the whole publish folder to another PC.
+  After this script + a Release publish with the PortableWithBundledTools profile, the output folder is
+  self-contained (.NET 8 runtime included) with bundled engines. Review NOTICE,
+  THIRD_PARTY_LICENSES.txt, and FFMPEG_COMPLIANCE.md before redistribution.
 
   Usage:
     .\scripts\Download-BundledTools.ps1
+    .\scripts\Download-BundledTools.ps1 -IncludeCopyleftTools
     .\scripts\Download-BundledTools.ps1 -IncludeLibreOffice
     .\scripts\Download-BundledTools.ps1 -ToolsRoot D:\path\to\Tools
 #>
 param(
     [string] $ToolsRoot = "",
+    [switch] $IncludeCopyleftTools,
     [switch] $IncludeLibreOffice,
     [string] $LibreOfficeVersion = "25.8.5"
 )
@@ -69,31 +73,38 @@ try {
     Write-Host "Bootstrapping 7-Zip CLI..."
     $sevenZa = Get-Bootstrap7za -WorkDir $tempDir
 
-    Write-Host "Downloading FFmpeg (BtbN win64 GPL)..."
-    $ffmpegZip = Join-Path $tempDir "ffmpeg.zip"
-    Invoke-WebRequest -Uri "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip" `
-        -OutFile $ffmpegZip -UseBasicParsing
-    $ffStage = Join-Path $tempDir "ffmpeg-stage"
-    Expand-Archive -Path $ffmpegZip -DestinationPath $ffStage -Force
-    $ffRoot = Get-ChildItem $ffStage -Directory | Select-Object -First 1
-    if (-not $ffRoot) { throw "FFmpeg zip layout unexpected." }
-    $destFf = Join-Path $ToolsRoot "ffmpeg"
-    Remove-Item $destFf -Recurse -Force -ErrorAction SilentlyContinue
-    New-Item -ItemType Directory -Force -Path $destFf | Out-Null
-    Copy-Item -Path (Join-Path $ffRoot.FullName "bin\*") -Destination $destFf -Recurse -Force
+    if ($IncludeCopyleftTools) {
+        Write-Warning "Including FFmpeg and Pandoc adds copyleft redistribution obligations. Audit the resulting package before shipping it."
 
-    Write-Host "Downloading Pandoc (latest release)..."
-    $pandocRel = Invoke-RestMethod -Uri "https://api.github.com/repos/jgm/pandoc/releases/latest" -Headers $ghHeaders
-    $pandocAsset = $pandocRel.assets | Where-Object { $_.name -match "windows-x86_64\.zip$" } | Select-Object -First 1
-    if (-not $pandocAsset) { throw "Pandoc windows-x86_64.zip not found in latest release." }
-    $pandocZip = Join-Path $tempDir "pandoc.zip"
-    Invoke-WebRequest -Uri $pandocAsset.browser_download_url -OutFile $pandocZip -UseBasicParsing
-    $pStage = Join-Path $tempDir "pandoc-stage"
-    Expand-Archive -Path $pandocZip -DestinationPath $pStage -Force
-    $destP = Join-Path $ToolsRoot "pandoc"
-    Remove-Item $destP -Recurse -Force -ErrorAction SilentlyContinue
-    New-Item -ItemType Directory -Force -Path $destP | Out-Null
-    Copy-Item -Path (Join-Path $pStage "*") -Destination $destP -Recurse -Force
+        Write-Host "Downloading FFmpeg (BtbN win64 GPL)..."
+        $ffmpegZip = Join-Path $tempDir "ffmpeg.zip"
+        Invoke-WebRequest -Uri "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip" `
+            -OutFile $ffmpegZip -UseBasicParsing
+        $ffStage = Join-Path $tempDir "ffmpeg-stage"
+        Expand-Archive -Path $ffmpegZip -DestinationPath $ffStage -Force
+        $ffRoot = Get-ChildItem $ffStage -Directory | Select-Object -First 1
+        if (-not $ffRoot) { throw "FFmpeg zip layout unexpected." }
+        $destFf = Join-Path $ToolsRoot "ffmpeg"
+        Remove-Item $destFf -Recurse -Force -ErrorAction SilentlyContinue
+        New-Item -ItemType Directory -Force -Path $destFf | Out-Null
+        Copy-Item -Path (Join-Path $ffRoot.FullName "bin\*") -Destination $destFf -Recurse -Force
+
+        Write-Host "Downloading Pandoc (latest release)..."
+        $pandocRel = Invoke-RestMethod -Uri "https://api.github.com/repos/jgm/pandoc/releases/latest" -Headers $ghHeaders
+        $pandocAsset = $pandocRel.assets | Where-Object { $_.name -match "windows-x86_64\.zip$" } | Select-Object -First 1
+        if (-not $pandocAsset) { throw "Pandoc windows-x86_64.zip not found in latest release." }
+        $pandocZip = Join-Path $tempDir "pandoc.zip"
+        Invoke-WebRequest -Uri $pandocAsset.browser_download_url -OutFile $pandocZip -UseBasicParsing
+        $pStage = Join-Path $tempDir "pandoc-stage"
+        Expand-Archive -Path $pandocZip -DestinationPath $pStage -Force
+        $destP = Join-Path $ToolsRoot "pandoc"
+        Remove-Item $destP -Recurse -Force -ErrorAction SilentlyContinue
+        New-Item -ItemType Directory -Force -Path $destP | Out-Null
+        Copy-Item -Path (Join-Path $pStage "*") -Destination $destP -Recurse -Force
+    }
+    else {
+        Write-Host "Skipping FFmpeg and Pandoc. Use -IncludeCopyleftTools only for audited offline distributions."
+    }
 
     Write-Host "Downloading ImageMagick portable (latest Q16 x64)..."
     $imRel = Invoke-RestMethod -Uri "https://api.github.com/repos/ImageMagick/ImageMagick/releases/latest" -Headers $ghHeaders
@@ -144,9 +155,12 @@ try {
     Write-Host ""
     Write-Host "Done. Tools installed under: $ToolsRoot"
     Write-Host "Ghostscript: install separately (winget install Ghostscript.Ghostscript) or rely on Program Files detection."
-    Write-Host "Publish portable (includes .NET 10 runtime):"
+    Write-Host "Publish portable (Store-safe default, no external tools bundled):"
     Write-Host "  dotnet publish `"$repoRoot\src\Cofrox.App\Cofrox.App.csproj`" -c Release -p:PublishProfile=Portable"
+    Write-Host "Publish offline tool pack (audit before redistribution):"
+    Write-Host "  dotnet publish `"$repoRoot\src\Cofrox.App\Cofrox.App.csproj`" -c Release -p:PublishProfile=PortableWithBundledTools"
 }
 finally {
     Remove-Item $tempDir -Recurse -Force -ErrorAction SilentlyContinue
 }
+

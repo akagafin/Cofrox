@@ -26,7 +26,7 @@ public sealed class ImageConversionEngine(
             return new ConversionResult
             {
                 Status = ConversionStatus.Failed,
-                Message = "Bundled ImageMagick binary was not found.",
+                Message = "ImageMagick was not found. Install it separately or place magick.exe under Tools\\imagemagick.",
                 Duration = TimeSpan.Zero,
             };
         }

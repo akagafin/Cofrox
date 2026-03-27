@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -38,7 +38,7 @@
     <value>Disclaimer</value>
   </data>
   <data name="LegalLicensesIntro" xml:space="preserve">
-    <value>Cofrox is built on open source software. The following libraries are used in this application. Full license texts are included as required by each respective license.</value>
+    <value>Cofrox includes open source components and can optionally use external conversion tools. The list below reflects the components redistributed with this build of the app. User-installed executables remain licensed by their original publishers.</value>
   </data>
   <data name="LegalDisclaimerDialogTitle" xml:space="preserve">
     <value>Before You Start</value>
@@ -53,10 +53,46 @@
     <value>Close</value>
   </data>
   <data name="LegalLicenseNoteFfmpegApp" xml:space="preserve">
-    <value>This application uses FFmpeg licensed under the LGPL 2.1. FFmpeg was compiled without GPL components.</value>
+    <value>Review the exact FFmpeg binary before redistribution. The developer tool-download script currently fetches a GPL-class build, which is not suitable for a Microsoft Store package without corresponding-source compliance.</value>
+  </data>
+  <data name="LegalLicenseNoteImageMagickApp" xml:space="preserve">
+    <value>If ImageMagick is bundled with this build, keep the upstream LICENSE and NOTICE files beside the executable in the redistributed package.</value>
+  </data>
+  <data name="LegalLicenseNotePandocApp" xml:space="preserve">
+    <value>Pandoc is GPL software. If it is bundled with the app, distribute the matching GPL notice and the corresponding source for the exact version you ship.</value>
+  </data>
+  <data name="LegalLicenseNoteSevenZipApp" xml:space="preserve">
+    <value>7-Zip includes LGPL and other upstream notices. Preserve the original license files and any unRAR restriction notice from the redistributed package.</value>
+  </data>
+  <data name="LegalLicenseNoteLibreOfficeApp" xml:space="preserve">
+    <value>LibreOffice ships with multiple upstream notices. If you redistribute it, preserve the exact license and notice files from the installer or portable package you ship.</value>
   </data>
   <data name="LegalLicenseNoteGhostscriptApp" xml:space="preserve">
-    <value>This application uses Ghostscript under the AGPL 3.0.</value>
+    <value>Do not bundle the open-source Ghostscript build into a Store package without reviewing the AGPL obligations or obtaining a commercial license from Artifex.</value>
+  </data>
+  <data name="LegalNoticeTextMit" xml:space="preserve">
+    <value>Redistribution notice: preserve the upstream copyright notice and the full MIT license text in source or binary distributions of this component.</value>
+  </data>
+  <data name="LegalNoticeTextMsPlApache" xml:space="preserve">
+    <value>Redistribution notice: preserve the upstream license text for CsvHelper. The project offers Ms-PL or Apache-2.0 licensing, so ship the notice that matches the package you redistribute.</value>
+  </data>
+  <data name="LegalNoticeTextFfmpeg" xml:space="preserve">
+    <value>FFmpeg is an external executable. Its obligations depend on the exact binary you bundle. Preserve the original license files, keep the build configuration, and do not describe the binary as LGPL-only unless you have verified that build.</value>
+  </data>
+  <data name="LegalNoticeTextImageMagick" xml:space="preserve">
+    <value>ImageMagick uses its own permissive license. Keep the original LICENSE and NOTICE files from the redistributed package and preserve attribution to ImageMagick Studio LLC.</value>
+  </data>
+  <data name="LegalNoticeTextPandoc" xml:space="preserve">
+    <value>Pandoc is GPL-licensed. If you bundle it, preserve the GPL notice and make the corresponding source for the exact redistributed version available to recipients.</value>
+  </data>
+  <data name="LegalNoticeTextSevenZip" xml:space="preserve">
+    <value>7-Zip is primarily LGPL-licensed and also carries additional upstream notices. Preserve the shipped license files and any unRAR restriction notice that accompanies the redistributed package.</value>
+  </data>
+  <data name="LegalNoticeTextLibreOffice" xml:space="preserve">
+    <value>LibreOffice is distributed under multiple upstream licenses. Preserve the license bundle that ships with the exact LibreOffice package you redistribute.</value>
+  </data>
+  <data name="LegalNoticeTextGhostscript" xml:space="preserve">
+    <value>The open-source Ghostscript distribution is typically AGPL-licensed. Bundling it in a commercial app requires strict AGPL compliance or a separate commercial license.</value>
   </data>
 
   <data name="LegalPrivacyPolicyMarkdown" xml:space="preserve">
@@ -80,15 +116,15 @@ Cofrox does not collect, store, transmit, or share any personal data or usage da
 
 The following data is stored exclusively on your local device and is never transmitted anywhere:
 
-- **Conversion history** — a log of recent conversions containing only file names and format pairs (not file contents), stored in a local SQLite database at `%LOCALAPPDATA%\Cofrox\history.db`.
-- **App preferences** — your settings (theme, quality defaults, output folder path) stored via Windows ApplicationData.LocalSettings.
-- **Temporary files** — intermediate files created during conversion, stored in `%TEMP%\Cofrox\` and automatically deleted after each conversion completes.
+- **Conversion history** - a log of recent conversions containing only file names and format pairs (not file contents), stored in a local SQLite database at `%LOCALAPPDATA%\Cofrox\history.db`.
+- **App preferences** - your settings (theme, quality defaults, output folder path) stored via Windows ApplicationData.LocalSettings.
+- **Temporary files** - intermediate files created during conversion, stored in `%TEMP%\Cofrox\` and automatically deleted after each conversion completes.
 
-You can delete all locally stored data at any time from Settings → Storage → Clear All Data, or by uninstalling the application.
+You can delete all locally stored data at any time from Settings > Storage > Clear All Data, or by uninstalling the application.
 
 ## 3. Third-Party Open Source Libraries
 
-Cofrox uses open source libraries (FFmpeg, ImageMagick, Pandoc, and others) to perform file conversions. All of these libraries run entirely on your device. They do not independently connect to the internet or collect data when used within this application. A full list is available in Settings → Legal → Open Source Licenses.
+Cofrox uses open source libraries (FFmpeg, ImageMagick, Pandoc, and others) to perform file conversions. All of these libraries run entirely on your device. They do not independently connect to the internet or collect data when used within this application. A full list is available in Settings > Legal > Open Source Licenses.
 
 ## 4. Children's Privacy
 
@@ -130,7 +166,7 @@ You may not use Cofrox to:
 
 ## 4. Open Source Components
 
-The App includes open source software components listed in Settings → Legal → Open Source Licenses. Your use of the App means you also accept the terms of those open source licenses where applicable. Where an open source license grants you rights that exceed those in these Terms, those open source license terms take precedence for that specific component.
+The App includes open source software components listed in Settings > Legal > Open Source Licenses. Your use of the App means you also accept the terms of those open source licenses where applicable. Where an open source license grants you rights that exceed those in these Terms, those open source license terms take precedence for that specific component.
 
 ## 5. No Warranty
 
@@ -142,7 +178,7 @@ To the maximum extent permitted by applicable law, the developers shall not be l
 
 ## 7. Updates and Changes
 
-The developers may update the App and these Terms at any time. The most current version of these Terms will always be available in Settings → Legal → Terms of Use and in the project's GitHub repository. Continued use of the App after any update constitutes your acceptance of the revised Terms.
+The developers may update the App and these Terms at any time. The most current version of these Terms will always be available in Settings > Legal > Terms of Use and in the project's GitHub repository. Continued use of the App after any update constitutes your acceptance of the revised Terms.
 
 ## 8. Termination
 
@@ -164,7 +200,7 @@ For questions about these Terms, open an issue on the project's GitHub repositor
   <data name="LegalDisclaimerMarkdown" xml:space="preserve">
     <value># Disclaimer
 
-*Cofrox — User Disclaimer*
+*Cofrox - User Disclaimer*
 
 By installing or using Cofrox, you acknowledge that you have read, understood, and agreed to this disclaimer in full.
 
@@ -537,3 +573,4 @@ Community Licenses are subject to the further restrictions set forth in Section 
 Syncfusion reserves all rights to the Licensed Product not specifically granted herein.</value>
   </data>
 </root>
+

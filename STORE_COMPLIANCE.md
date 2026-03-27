@@ -12,8 +12,8 @@ The largest remaining blockers are:
 2. The current bundled FFmpeg binary is GPLv3-class, which is incompatible with
    the repo's simpler MIT-oriented release story unless corresponding-source
    obligations are fully implemented for that component.
-3. The current default package strategy still bundles or references optional
-   third-party engines without a finalized Store-specific distribution plan.
+3. A final Store-specific package identity, signing flow, and capability review
+   still need to be completed on a clean Windows machine.
 4. Windows App Certification Kit has not been run against a final MSIX artifact.
 
 ## Checklist
@@ -52,7 +52,7 @@ Current repo review:
 ### 4. Third-Party Licenses
 
 - [x] `LICENSE`, `NOTICE`, and `THIRD_PARTY_LICENSES.txt` now exist in the repo
-- [ ] align the in-app legal surface with the audited dependency inventory
+- [x] align the in-app legal surface with the audited dependency inventory
 - [ ] decide whether the Store package will ship FFmpeg and Pandoc binaries at
       all
 - [ ] if FFmpeg remains bundled, archive exact corresponding source and build
@@ -80,8 +80,9 @@ Current repo review:
 
 - No verified MSIX packaging path in the solution today.
 - No WACK test evidence in the repo.
-- Current FFmpeg bundle has GPLv3 obligations.
-- Current Pandoc bundle adds GPL redistribution obligations.
+- Optional FFmpeg bundles still have GPLv3 obligations unless replaced with a
+  verified LGPL-only build.
+- Optional Pandoc bundles still add GPL redistribution obligations.
 - Current ImageMagick policy is not yet hardened for a broad public release.
 
 ## Recommended Store Package Policy

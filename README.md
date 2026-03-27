@@ -35,8 +35,8 @@ while staying privacy-first and Microsoft Store aware.
 ## Requirements
 
 - Windows 10 1809 or newer (Windows 11 recommended)
-- Visual Studio 2026 with the .NET desktop development workload
-- .NET 10 SDK (see `global.json`; tested against `10.0.201+`)
+- Visual Studio 2022 with the .NET desktop development workload
+- .NET 8 SDK (see `global.json`; tested against `8.0.419+`)
 - Windows App SDK 1.5 or later
 - Windows 10 SDK `17763+`
 
@@ -87,10 +87,9 @@ Cofrox is 100% on-device. No data is ever sent to any server.
 
 The repository still needs additional work before a Microsoft Store release:
 
-- the current bundled FFmpeg binary is GPL-class, not LGPL-only
-- the current bundled Pandoc binary is GPL-licensed
-- no verified MSIX packaging project is present yet
-- Windows App Certification Kit has not been run on a final package
+- a final MSIX packaging pass still needs to be completed on a clean Windows machine
+- Windows App Certification Kit still needs to be run on the final MSIX output
+- any optional offline tool bundle still needs a separate legal audit before redistribution
 
 ## Contributing
 

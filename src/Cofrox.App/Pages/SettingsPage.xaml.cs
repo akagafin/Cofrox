@@ -23,10 +23,10 @@ public sealed partial class SettingsPage : Page
     {
         DataContext ??= ViewModel;
         LegalExpander.Header = _resourceService.GetString("LegalSettingsHeader");
-        PrivacyPolicyText.Text = _resourceService.GetString("LegalSettingsPrivacyPolicy");
-        TermsOfUseText.Text = _resourceService.GetString("LegalSettingsTermsOfUse");
-        LicensesText.Text = _resourceService.GetString("LegalSettingsOpenSourceLicenses");
-        DisclaimerText.Text = _resourceService.GetString("LegalSettingsDisclaimer");
+        PrivacyPolicyButton.Content = _resourceService.GetString("LegalSettingsPrivacyPolicy");
+        TermsOfUseButton.Content = _resourceService.GetString("LegalSettingsTermsOfUse");
+        LicensesButton.Content = _resourceService.GetString("LegalSettingsOpenSourceLicenses");
+        DisclaimerButton.Content = _resourceService.GetString("LegalSettingsDisclaimer");
         await ViewModel.LoadAsync();
     }
 

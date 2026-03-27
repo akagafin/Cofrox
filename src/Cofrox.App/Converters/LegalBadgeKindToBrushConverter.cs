@@ -20,7 +20,7 @@ public sealed class LegalBadgeKindToBrushConverter : IValueConverter
             }
             : "LegalBadgeCommunityBrush";
 
-        return Application.Current.Resources[key] as Brush ?? new SolidColorBrush(Windows.UI.Colors.Gray);
+        return Microsoft.UI.Xaml.Application.Current.Resources[key] as Brush ?? new SolidColorBrush(Microsoft.UI.Colors.Gray);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, string language) =>
