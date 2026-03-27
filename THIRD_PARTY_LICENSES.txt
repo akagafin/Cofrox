@@ -1,0 +1,245 @@
+COFROX THIRD-PARTY LICENSE INVENTORY
+Updated: March 27, 2026
+
+This file lists the third-party components that are actually referenced by the
+current Cofrox source tree and/or bundled in the repository. It is not a full
+SBOM. It is a practical redistribution and compliance inventory for release
+engineering.
+
+========================================================================
+DISTRIBUTED WITH THE CURRENT REPOSITORY
+========================================================================
+
+1. FFmpeg
+   Version:
+   - Bundled binary reports: N-123619-g44ad73031d-20260325
+   License:
+   - Effective license for the bundled binary: GPL-3.0-or-later
+   Short description:
+   - Media transcoding, probing, filters, and audio/video conversion engine.
+   Attribution:
+   - Copyright (c) 2000-2026 the FFmpeg developers
+   Why this matters:
+   - The current binary was built with --enable-gpl, --enable-version3,
+     --enable-libx264, --enable-libx265, --enable-libxvid, and other options
+     that move the binary out of the default LGPL posture.
+   Obligations:
+   - Preserve FFmpeg notices and GPL license text.
+   - Provide the exact corresponding source code for the exact binary shipped.
+   - Preserve build instructions/configuration for the shipped binary.
+   - Do not describe this bundled binary as "LGPL-only" in product materials.
+   Risk:
+   - Highest legal risk in the current repo. Replace with a self-built LGPL-only
+     FFmpeg if the release goal is simple MIT distribution and Microsoft Store
+     packaging without GPL redistribution overhead.
+
+2. ImageMagick CLI
+   Version:
+   - Bundled binary reports: 7.1.2-18
+   License:
+   - ImageMagick License
+   Short description:
+   - Raster image conversion and manipulation backend invoked via magick.exe.
+   Attribution:
+   - Copyright (C) 1999 ImageMagick Studio LLC
+   Obligations:
+   - Include the upstream license text with redistribution.
+   - Preserve the upstream NOTICE text.
+   - Keep attribution to ImageMagick Studio LLC.
+   Risk:
+   - Low license risk, but the current policy.xml is the upstream open policy
+     and should be hardened before a broad public release.
+
+3. Pandoc
+   Version:
+   - Bundled binary reports: 3.9.0.2
+   License:
+   - GPL-2.0-or-later
+   Short description:
+   - Document and ebook conversion engine used for text-centric formats.
+   Attribution:
+   - Copyright (C) 2006-2024 John MacFarlane
+   Obligations:
+   - Preserve GPL notices and license text.
+   - Make corresponding source code for the exact redistributed version
+     available in the release workflow.
+   Risk:
+   - Significant copyleft redistribution burden if bundled inside a commercial
+     desktop distribution. Safer options are user-supplied installation, a
+     separate downloadable component with clear notices, or replacing the
+     workflow with a permissive alternative where practical.
+
+4. 7-Zip
+   Version:
+   - Bundled binary reports: 25.00
+   License:
+   - Primarily LGPL-2.1-or-later, with BSD-3-Clause and BSD-2-Clause portions,
+     plus the unRAR license restriction for RAR support
+   Short description:
+   - Archive creation and format conversion backend invoked via 7z.exe.
+   Attribution:
+   - Copyright (c) 1999-2025 Igor Pavlov
+   Obligations:
+   - Preserve the upstream 7-Zip license information with binary redistribution.
+   - Preserve the unRAR restriction notice if RAR-related functionality is
+     available in the shipped executable.
+   Risk:
+   - Moderate compliance risk if shipped without the full upstream license text.
+
+5. CommunityToolkit.Mvvm
+   Version:
+   - 8.4.0
+   License:
+   - MIT
+   Short description:
+   - MVVM base types, observable properties, and relay commands.
+   Attribution:
+   - Copyright Microsoft Corporation and contributors
+   Obligations:
+   - Preserve the MIT license notice in third-party notices.
+   Risk:
+   - Low.
+
+6. Microsoft.Extensions.DependencyInjection
+   Version:
+   - 9.0.0
+   License:
+   - MIT
+   Short description:
+   - Dependency injection container and activation services.
+   Attribution:
+   - Copyright .NET Foundation and contributors
+   Obligations:
+   - Preserve the MIT license notice in third-party notices.
+   Risk:
+   - Low.
+
+7. Microsoft.Extensions.DependencyInjection.Abstractions
+   Version:
+   - 9.0.0
+   License:
+   - MIT
+   Short description:
+   - Dependency injection abstractions shared across application layers.
+   Attribution:
+   - Copyright .NET Foundation and contributors
+   Obligations:
+   - Preserve the MIT license notice in third-party notices.
+   Risk:
+   - Low.
+
+8. Microsoft.Extensions.Hosting
+   Version:
+   - 9.0.0
+   License:
+   - MIT
+   Short description:
+   - Generic host infrastructure used to bootstrap services in the desktop app.
+   Attribution:
+   - Copyright .NET Foundation and contributors
+   Obligations:
+   - Preserve the MIT license notice in third-party notices.
+   Risk:
+   - Low.
+
+9. Microsoft.WindowsAppSDK
+   Version:
+   - 1.5.240311000
+   License:
+   - MIT
+   Short description:
+   - WinUI 3 and Windows App SDK runtime package used by the native shell.
+   Attribution:
+   - Copyright Microsoft Corporation and contributors
+   Obligations:
+   - Preserve the MIT license notice in third-party notices.
+   Risk:
+   - Low license risk. Packaging and runtime deployment still need MSIX and/or
+     Windows App Runtime planning.
+
+10. Microsoft.Data.Sqlite
+    Version:
+    - 9.0.0
+    License:
+    - MIT
+    Short description:
+    - Local SQLite provider used for conversion history persistence.
+    Attribution:
+    - Copyright .NET Foundation and contributors
+    Obligations:
+    - Preserve the MIT license notice in third-party notices.
+    Risk:
+    - Low.
+
+11. CsvHelper
+    Version:
+    - 33.0.1
+    License:
+    - Dual-licensed: MS-PL or Apache-2.0
+    Short description:
+    - CSV parsing and writing in the data conversion engine.
+    Attribution:
+    - Copyright Josh Close
+    Obligations:
+    - Preserve the upstream license notice.
+    - If relying on the Apache-2.0 option, keep any required notice content.
+    Risk:
+    - Low.
+
+12. YamlDotNet
+    Version:
+    - 15.1.2
+    License:
+    - MIT
+    Short description:
+    - YAML parsing and serialization in the data conversion engine.
+    Attribution:
+    - Copyright Antoine Aubry and contributors
+    Obligations:
+    - Preserve the MIT license notice in third-party notices.
+    Risk:
+    - Low.
+
+========================================================================
+OPTIONAL / DETECTED BY CODE, BUT NOT BUNDLED IN THE CURRENT REPOSITORY
+========================================================================
+
+13. Ghostscript
+    Distribution status:
+    - Not bundled in the current repo tree
+    License:
+    - AGPL-3.0-or-later for the standard open-source release
+    Short description:
+    - Optional PostScript/PDF delegate that may be detected if installed on the
+      user's system.
+    Risk:
+    - Very high if bundled. Do not redistribute Ghostscript from Cofrox unless
+      you are prepared to comply with the AGPL or you obtain a commercial
+      license from Artifex.
+
+14. LibreOffice
+    Distribution status:
+    - Not bundled in the current repo tree
+    License:
+    - Verify against the exact installer package selected for redistribution
+    Short description:
+    - Optional Office-to-PDF/document conversion fallback when a compatible
+      local installation is present.
+    Risk:
+    - Medium. Current code can use a user-installed copy, which avoids direct
+      redistribution from Cofrox. If you later bundle LibreOffice, preserve the
+      exact notices and license files from the chosen release package.
+
+========================================================================
+RECOMMENDED PROJECT LICENSE STRATEGY
+========================================================================
+
+- Use MIT for the Cofrox application code.
+- Keep copyleft obligations scoped to separately redistributed third-party
+  executables and their notices.
+- Before Store publication, replace the current FFmpeg bundle with a verified
+  LGPL-only build or be prepared to ship full GPLv3 corresponding source for
+  the FFmpeg component.
+- Strongly consider removing the bundled Pandoc binary from the default Store
+  package unless you are comfortable with GPL redistribution obligations for
+  that component.

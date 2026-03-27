@@ -32,19 +32,7 @@ public sealed class ThemeService(
     {
         _currentMode = mode;
         var settings = await settingsRepository.LoadAsync(cancellationToken);
-        await settingsRepository.SaveAsync(
-            new AppSettings
-            {
-                OutputFolderPath = settings.OutputFolderPath,
-                DefaultVideoQuality = settings.DefaultVideoQuality,
-                DefaultImageQuality = settings.DefaultImageQuality,
-                MaxParallelConversions = settings.MaxParallelConversions,
-                AutoDeleteTempFiles = settings.AutoDeleteTempFiles,
-                ThemeMode = mode,
-                SaveHistory = settings.SaveHistory,
-                LibreOfficePath = settings.LibreOfficePath,
-            },
-            cancellationToken);
+        await settingsRepository.SaveAsync(settings with { ThemeMode = mode }, cancellationToken);
         _dispatcherQueue?.TryEnqueue(ApplyTheme);
     }
 

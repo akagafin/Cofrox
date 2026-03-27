@@ -111,9 +111,7 @@ public sealed partial class FileCardViewModel : ObservableObject
             var settings = await _settingsRepository.LoadAsync(_conversionCts.Token);
             Directory.CreateDirectory(settings.OutputFolderPath);
 
-            var outputPath = Path.Combine(
-                settings.OutputFolderPath,
-                $"{Path.GetFileNameWithoutExtension(_file.FileName)}.{SelectedTarget.Extension}");
+            var outputPath = ResolveOutputPath(settings.OutputFolderPath, SelectedTarget.Extension);
 
             var job = new ConversionJob
             {
@@ -131,7 +129,7 @@ public sealed partial class FileCardViewModel : ObservableObject
                 new Progress<double>(value => Progress = value),
                 _conversionCts.Token);
 
-            Progress = result.Status == ConversionStatus.Completed ? 1 : Progress;
+            Progress = result.Status is ConversionStatus.Completed or ConversionStatus.Warning ? 1 : Progress;
             StatusText = result.Status switch
             {
                 ConversionStatus.Completed => AppCopy.Done,
@@ -154,6 +152,13 @@ public sealed partial class FileCardViewModel : ObservableObject
             StatusText = "Conversion cancelled.";
             InfoSeverity = InfoBarSeverity.Warning;
             InfoMessage = "The current conversion was cancelled.";
+            IsInfoBarOpen = true;
+        }
+        catch (Exception ex)
+        {
+            StatusText = AppCopy.Error;
+            InfoSeverity = InfoBarSeverity.Error;
+            InfoMessage = ex.Message;
             IsInfoBarOpen = true;
         }
         finally
@@ -246,5 +251,26 @@ public sealed partial class FileCardViewModel : ObservableObject
         }
 
         RefreshOptionVisibility();
+    }
+
+    private string ResolveOutputPath(string outputFolderPath, string targetExtension)
+    {
+        var baseName = Path.GetFileNameWithoutExtension(_file.FileName);
+        var candidate = Path.Combine(outputFolderPath, $"{baseName}.{targetExtension}");
+        if (!File.Exists(candidate))
+        {
+            return candidate;
+        }
+
+        for (var suffix = 1; suffix <= 999; suffix++)
+        {
+            candidate = Path.Combine(outputFolderPath, $"{baseName} ({suffix}).{targetExtension}");
+            if (!File.Exists(candidate))
+            {
+                return candidate;
+            }
+        }
+
+        return Path.Combine(outputFolderPath, $"{baseName}-{Guid.NewGuid():N}.{targetExtension}");
     }
 }

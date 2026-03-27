@@ -1,88 +1,102 @@
 # Cofrox Native Windows
 
-Cofrox is a native WinUI 3 desktop app that provides secure, offline file conversion for Windows. Conversion operations are performed on-device with modern UI conventions, Windows theme support, and Microsoft Store packaging readiness.
+Cofrox is a native WinUI 3 desktop application for secure, offline file
+conversion on Windows. It is designed as a universal converter for media,
+images, documents, archives, data formats, subtitles, fonts, and 3D assets
+while staying privacy-first and Microsoft Store aware.
 
-## 🚀 Highlights
+## Highlights
 
-- Fully on-device conversion (no cloud upload)
-- WinUI 3 desktop UI with light/dark mode follow
-- Extensible engine-based converter architecture
-- Format compatibility tracking and history
-- Privacy-first: no telemetry, no user data leaks
+- Fully on-device conversion with no cloud upload
+- WinUI 3 desktop UI with Windows theme follow and Fluent materials
+- Plugin-style conversion engines for media, image, document, archive, data,
+  subtitle, font, and 3D workflows
+- Smart conversion planning layer with presets, queue persistence, and FFmpeg
+  command mapping
+- Privacy-first defaults with local history, temp cleanup, and no telemetry
 
-## 📦 Solution Layout
+## Solution Layout
 
-- `src/Cofrox.App/`: WinUI 3 application shell, XAML UI, view models, navigation, UX services.
-- `src/Cofrox.Core/`: shared format catalog, format detection, compatibility matrix, common utilities.
-- `src/Cofrox.Domain/`: domain entities, enums, options, interfaces, value objects.
-- `src/Cofrox.Data/`: persistence layers (SQLite history, app settings, temp file and profile management).
-- `src/Cofrox.Converters/`: conversion coordination, engine adapters, external process runners.
-- `tests/Cofrox.Core.Tests/`: unit tests for format catalog, detection logic, compatibility and utilities.
+- `src/Cofrox.App/`: WinUI 3 shell, XAML views, navigation, UX services, and
+  view models
+- `src/Cofrox.Application/`: application services for presets, smart
+  recommendations, queue state, and FFmpeg planning
+- `src/Cofrox.Core/`: format catalog, compatibility matrix, format detection,
+  and shared utilities
+- `src/Cofrox.Domain/`: entities, enums, interfaces, and value objects
+- `src/Cofrox.Data/`: SQLite history, local settings, temp file management, and
+  bundled tool discovery
+- `src/Cofrox.Converters/`: conversion coordinator, engine adapters, and
+  external process execution
+- `tests/Cofrox.Core.Tests/`: core unit tests
+- `tests/Cofrox.Application.Tests/`: application-service unit tests and
+  integration scenario scaffolding
 
-## 🛠️ Requirements
+## Requirements
 
 - Windows 10 1809 or newer (Windows 11 recommended)
-- Visual Studio 2026 (current release) with the **.NET desktop development** workload
-- .NET 10 SDK (see `global.json`; e.g. 10.0.201+)
+- Visual Studio 2026 with the .NET desktop development workload
+- .NET 10 SDK (see `global.json`; tested against `10.0.201+`)
 - Windows App SDK 1.5 or later
-- Windows 10 SDK 17763+
+- Windows 10 SDK `17763+`
 
-Optional tools for full engine coverage:
-- FFmpeg
-- Pandoc
-- Ghostscript
-- 7-Zip
-- LibreOffice
+## Quick Start
 
-## 🧩 Quick Setup
+1. Clone the repository.
+2. Open `Cofrox.sln` in Visual Studio and select `x64`.
+3. Restore NuGet packages.
+4. Build `Cofrox.App` in `Debug` or `Release`.
 
-1. Clone repository:
+CLI example:
 
 ```powershell
-git clone https://github.com/<your-org>/cofrox.git
-cd cofrox
+dotnet restore .\Cofrox.sln
+dotnet build .\Cofrox.sln -c Release -p:Platform=x64
+dotnet test .\tests\Cofrox.Core.Tests\Cofrox.Core.Tests.csproj
+dotnet test .\tests\Cofrox.Application.Tests\Cofrox.Application.Tests.csproj
 ```
 
-2. Restore dependencies (automatic with .NET build):
+## Engineering Docs
 
-```powershell
-dotnet restore
-```
+| Document | Purpose |
+|---|---|
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | Clean architecture, plugin engine design, and key production services |
+| [QA_REPORT.md](./QA_REPORT.md) | Test strategy, critical bug list, and coverage baseline |
+| [SECURITY_AUDIT.md](./SECURITY_AUDIT.md) | Command execution, file handling, privacy, and hardening review |
+| [PERFORMANCE_AUDIT.md](./PERFORMANCE_AUDIT.md) | CPU, memory, queue, and throughput analysis |
+| [STORE_COMPLIANCE.md](./STORE_COMPLIANCE.md) | Microsoft Store readiness, packaging, and certification checklist |
+| [RELEASE_CHECKLIST.md](./RELEASE_CHECKLIST.md) | Build, versioning, packaging, and ship checklist |
+| [PUBLISHING.md](./PUBLISHING.md) | Practical packaging and bundled-tool notes |
+| [FFMPEG_COMPLIANCE.md](./FFMPEG_COMPLIANCE.md) | Audit of the current FFmpeg bundle and release obligations |
 
-3. Open `Cofrox.sln` in Visual Studio 2026, select `x64` build, then `Debug` or `Release`.
+## Legal
 
-## 🏗️ Build and Run
+| Document | Description |
+|---|---|
+| [License](./LICENSE) | MIT license for the Cofrox application code |
+| [Notice](./NOTICE) | Redistribution notices for bundled third-party components |
+| [Privacy Policy](./PRIVACY_POLICY.md) | What data Cofrox collects (none) and how local data is handled |
+| [Terms of Use](./TERMS_OF_USE.md) | Rules governing use of the application |
+| [Disclaimer](./DISCLAIMER.md) | Liability disclaimer and user responsibilities |
+| [Third-Party Licenses](./THIRD_PARTY_LICENSES.md) | Audited GitHub-friendly dependency and redistribution summary |
+| [Third-Party Licenses (Text)](./THIRD_PARTY_LICENSES.txt) | Release-engineering inventory of licenses, obligations, and risks |
 
-### Using Visual Studio 2026
-- Set `Cofrox.App` as startup project.
-- Use `Debug` for local testing, `Release` for publication.
-- Build and run.
+Cofrox is 100% on-device. No data is ever sent to any server.
 
-### CLI
+## Current Release Reality
 
-```powershell
-dotnet build ./Cofrox.sln -c Release -p:Platform=x64 -r win-x64
-dotnet run --project ./src/Cofrox.App/Cofrox.App.csproj
-```
+The repository still needs additional work before a Microsoft Store release:
 
-## 🧪 Tests
+- the current bundled FFmpeg binary is GPL-class, not LGPL-only
+- the current bundled Pandoc binary is GPL-licensed
+- no verified MSIX packaging project is present yet
+- Windows App Certification Kit has not been run on a final package
 
-```powershell
-dotnet test ./tests/Cofrox.Core.Tests/Cofrox.Core.Tests.csproj
-```
-
-## 🛡️ Privacy and Legal
-
-- Privacy first: no user data is sent to any server.
-- [PRIVACY_POLICY.md](./PRIVACY_POLICY.md)
-- [TERMS_OF_USE.md](./TERMS_OF_USE.md)
-- [DISCLAIMER.md](./DISCLAIMER.md)
-- [THIRD_PARTY_LICENSES.md](./THIRD_PARTY_LICENSES.md)
-
-## 📝 Contributing
+## Contributing
 
 1. Open an issue to discuss bugs or feature requests.
-2. Create a branch from `main`: `feature/<your-feature-name>`.
-3. Commit code with descriptive messages.
-4. Add unit tests for any feature or bug fix.
-5. Open a pull request.
+2. Create a branch from `main` using the `codex/` prefix for Codex-authored
+   work.
+3. Add or update tests for every behavioral change.
+4. Keep converter changes isolated from UI-only work where possible.
+5. Open a pull request with test notes and risk notes.

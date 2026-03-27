@@ -2,7 +2,7 @@ using Cofrox.Domain.Enums;
 
 namespace Cofrox.Domain.Entities;
 
-public sealed class AppSettings
+public sealed record AppSettings
 {
     public static AppSettings Default => new();
 
@@ -24,4 +24,8 @@ public sealed class AppSettings
     public bool SaveHistory { get; init; } = true;
 
     public string? LibreOfficePath { get; init; }
+
+    public string CustomPresetsJson { get; init; } = "[]";
+
+    public string PersistentQueueStateJson { get; init; } = "[]";
 }

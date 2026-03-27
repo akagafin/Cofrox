@@ -24,6 +24,8 @@ public sealed class ApplicationDataSettingsRepository : ISettingsRepository
             ThemeMode = Enum.TryParse<AppThemeMode>(GetString("ThemeMode"), true, out var themeMode) ? themeMode : defaults.ThemeMode,
             SaveHistory = GetBoolean("SaveHistory") ?? defaults.SaveHistory,
             LibreOfficePath = GetString("LibreOfficePath"),
+            CustomPresetsJson = GetString("CustomPresetsJson") ?? defaults.CustomPresetsJson,
+            PersistentQueueStateJson = GetString("PersistentQueueStateJson") ?? defaults.PersistentQueueStateJson,
         };
 
         return Task.FromResult(result);
@@ -40,6 +42,8 @@ public sealed class ApplicationDataSettingsRepository : ISettingsRepository
         _settings.Values["ThemeMode"] = settings.ThemeMode.ToString();
         _settings.Values["SaveHistory"] = settings.SaveHistory;
         _settings.Values["LibreOfficePath"] = settings.LibreOfficePath ?? string.Empty;
+        _settings.Values["CustomPresetsJson"] = settings.CustomPresetsJson;
+        _settings.Values["PersistentQueueStateJson"] = settings.PersistentQueueStateJson;
         return Task.CompletedTask;
     }
 

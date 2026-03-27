@@ -1,3 +1,4 @@
+using Cofrox.Application.Interfaces;
 using Cofrox.Domain.Entities;
 using Cofrox.Domain.Enums;
 using Cofrox.Domain.Interfaces;
@@ -8,6 +9,7 @@ public sealed class ConversionCoordinator(
     IEnumerable<IConversionEngine> engines,
     IHistoryRepository historyRepository,
     ISettingsRepository settingsRepository,
+    IQueueManager queueManager,
     ISystemProfileService systemProfileService,
     ITempFileService tempFileService) : IConversionCoordinator
 {
@@ -23,12 +25,41 @@ public sealed class ConversionCoordinator(
             ResolveParallelLimit(settings.MaxParallelConversions, systemProfileService.GetCurrent()),
             2);
 
+        await queueManager.EnqueueAsync(job, cancellationToken).ConfigureAwait(false);
         await _semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
         {
+            await queueManager.UpdateStatusAsync(job.Id, ConversionStatus.Preparing, null, cancellationToken).ConfigureAwait(false);
             var engine = _engines.First(candidate => candidate.CanHandle(job.SourceFile.SourceExtension, job.TargetExtension));
             progress?.Report(0.02);
-            var result = await engine.ConvertAsync(job, progress, cancellationToken).ConfigureAwait(false);
+            await queueManager.UpdateStatusAsync(job.Id, ConversionStatus.Running, null, cancellationToken).ConfigureAwait(false);
+
+            ConversionResult result;
+            try
+            {
+                result = await engine.ConvertAsync(job, progress, cancellationToken).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                await queueManager.UpdateStatusAsync(job.Id, ConversionStatus.Cancelled, "Conversion cancelled by user.", CancellationToken.None).ConfigureAwait(false);
+                if (settings.AutoDeleteTempFiles)
+                {
+                    await tempFileService.CleanupJobAsync(job.Id, CancellationToken.None).ConfigureAwait(false);
+                }
+
+                throw;
+            }
+            catch (Exception ex)
+            {
+                result = new ConversionResult
+                {
+                    Status = ConversionStatus.Failed,
+                    Message = ex.Message,
+                    Duration = TimeSpan.Zero,
+                };
+            }
+
+            await queueManager.UpdateStatusAsync(job.Id, result.Status, result.Message, CancellationToken.None).ConfigureAwait(false);
 
             if (settings.SaveHistory)
             {
@@ -45,12 +76,12 @@ public sealed class ConversionCoordinator(
                         OutputPath = result.OutputPath,
                         Message = result.Message,
                     },
-                    cancellationToken).ConfigureAwait(false);
+                    CancellationToken.None).ConfigureAwait(false);
             }
 
             if (settings.AutoDeleteTempFiles)
             {
-                await tempFileService.CleanupJobAsync(job.Id, cancellationToken).ConfigureAwait(false);
+                await tempFileService.CleanupJobAsync(job.Id, CancellationToken.None).ConfigureAwait(false);
             }
 
             return result;

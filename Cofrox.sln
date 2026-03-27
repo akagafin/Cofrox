@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.App", "src\Cofrox.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.Core", "src\Cofrox.Core\Cofrox.Core.csproj", "{C3EBF35C-FE2A-4E82-AEB5-E6B2411044A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.Application", "src\Cofrox.Application\Cofrox.Application.csproj", "{5BDA4B12-3B86-4E78-8C23-A91A8DB8C476}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.Domain", "src\Cofrox.Domain\Cofrox.Domain.csproj", "{B4321C4F-7A4F-458F-A99B-64A9A4EAA445}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.Data", "src\Cofrox.Data\Cofrox.Data.csproj", "{A7B2D9E8-9058-4C7E-9B72-B57288978B73}"
@@ -13,6 +15,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.Converters", "src\Cofrox.Converters\Cofrox.Converters.csproj", "{4DBE6070-E6E7-4690-BD51-3B95F5E1A507}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.Core.Tests", "tests\Cofrox.Core.Tests\Cofrox.Core.Tests.csproj", "{7D795D33-5342-4AE3-83B6-8E951C7F67A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cofrox.Application.Tests", "tests\Cofrox.Application.Tests\Cofrox.Application.Tests.csproj", "{807E6BE7-93D8-4537-BB01-72886D237B80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +32,10 @@ Global
 		{C3EBF35C-FE2A-4E82-AEB5-E6B2411044A1}.Debug|x64.Build.0 = Debug|x64
 		{C3EBF35C-FE2A-4E82-AEB5-E6B2411044A1}.Release|x64.ActiveCfg = Release|x64
 		{C3EBF35C-FE2A-4E82-AEB5-E6B2411044A1}.Release|x64.Build.0 = Release|x64
+		{5BDA4B12-3B86-4E78-8C23-A91A8DB8C476}.Debug|x64.ActiveCfg = Debug|x64
+		{5BDA4B12-3B86-4E78-8C23-A91A8DB8C476}.Debug|x64.Build.0 = Debug|x64
+		{5BDA4B12-3B86-4E78-8C23-A91A8DB8C476}.Release|x64.ActiveCfg = Release|x64
+		{5BDA4B12-3B86-4E78-8C23-A91A8DB8C476}.Release|x64.Build.0 = Release|x64
 		{B4321C4F-7A4F-458F-A99B-64A9A4EAA445}.Debug|x64.ActiveCfg = Debug|x64
 		{B4321C4F-7A4F-458F-A99B-64A9A4EAA445}.Debug|x64.Build.0 = Debug|x64
 		{B4321C4F-7A4F-458F-A99B-64A9A4EAA445}.Release|x64.ActiveCfg = Release|x64
@@ -44,6 +52,10 @@ Global
 		{7D795D33-5342-4AE3-83B6-8E951C7F67A3}.Debug|x64.Build.0 = Debug|x64
 		{7D795D33-5342-4AE3-83B6-8E951C7F67A3}.Release|x64.ActiveCfg = Release|x64
 		{7D795D33-5342-4AE3-83B6-8E951C7F67A3}.Release|x64.Build.0 = Release|x64
+		{807E6BE7-93D8-4537-BB01-72886D237B80}.Debug|x64.ActiveCfg = Debug|x64
+		{807E6BE7-93D8-4537-BB01-72886D237B80}.Debug|x64.Build.0 = Debug|x64
+		{807E6BE7-93D8-4537-BB01-72886D237B80}.Release|x64.ActiveCfg = Release|x64
+		{807E6BE7-93D8-4537-BB01-72886D237B80}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,41 +1,63 @@
 # Privacy Policy
 
-*Last updated: March 25, 2026*
+*Last updated: March 27, 2026*
 
-Cofrox ("the App") is a native Windows application designed as a privacy-first, fully on-device file converter.
+Cofrox ("the App") is a native Windows application designed as a privacy-first,
+fully on-device file converter for Windows.
 
 ## 1. Data We Do Not Collect
 
-Cofrox does not collect, store, transmit, or share any personal data or usage data. Specifically:
+Cofrox does not collect, store, transmit, or share personal data or usage data.
+Specifically:
 
-- We do not collect your name, email address, or any identifying information.
-- We do not collect, read, or transmit the files you convert or their contents.
-- We do not use analytics, telemetry, crash reporting services, or any third-party tracking tools.
-- We do not display advertisements.
-- We do not connect to any remote server after the app is installed.
+- We do not collect your name, email address, or account information.
+- We do not upload, inspect, or transmit the contents of files you convert.
+- We do not include analytics, telemetry, advertising SDKs, or third-party
+  tracking tools.
+- We do not send conversion history, settings, or logs to a remote server.
+- We do not require an internet connection for normal file conversion after the
+  app is installed.
 
 ## 2. Data Stored Locally on Your Device
 
-The following data is stored exclusively on your local device and is never transmitted anywhere:
+The App stores a limited amount of local-only data on your device so core
+features can work:
 
-- **Conversion history** — a log of recent conversions containing only file names and format pairs (not file contents), stored in a local SQLite database at `%LOCALAPPDATA%\Cofrox\history.db`.
-- **App preferences** — your settings (theme, quality defaults, output folder path) stored via Windows ApplicationData.LocalSettings.
-- **Temporary files** — intermediate files created during conversion, stored in `%TEMP%\Cofrox\` and automatically deleted after each conversion completes.
+- **Conversion history** - a record of recent conversions, including file names,
+  source format, target format, time, status, and optional output path. File
+  contents are not stored in the history database.
+- **App preferences** - local settings such as theme, output folder, and
+  quality defaults.
+- **Temporary files** - short-lived intermediate files created during
+  conversion. These are intended to live under `%TEMP%\Cofrox\` and are deleted
+  automatically after conversion completes when cleanup succeeds.
 
-You can delete all locally stored data at any time from Settings → Storage → Clear All Data, or by uninstalling the application.
+## 3. Third-Party Conversion Components
 
-## 3. Third-Party Open Source Libraries
+Cofrox may invoke locally installed or bundled third-party conversion tools such
+as FFmpeg, ImageMagick, Pandoc, 7-Zip, Ghostscript, or LibreOffice. When used
+by Cofrox, these tools run locally on your device as child processes. Cofrox is
+designed so that normal conversion workflows remain offline.
 
-Cofrox uses open source libraries (FFmpeg, ImageMagick, Pandoc, and others) to perform file conversions. All of these libraries run entirely on your device. They do not independently connect to the internet or collect data when used within this application. A full list is available in Settings → Legal → Open Source Licenses.
+## 4. Microsoft Store and Public Distribution
 
-## 4. Children's Privacy
+For Microsoft Store or other public distribution channels, Cofrox will provide a
+publicly accessible version of this Privacy Policy and an offline copy inside
+the repository and application package. This document is intended to satisfy
+that requirement.
 
-This application does not knowingly collect data from anyone, including children. As stated above, no data is collected at all.
+## 5. Children's Privacy
 
-## 5. Changes to This Policy
+Cofrox does not knowingly collect data from anyone, including children. Because
+the App does not collect personal data at all, there is no child-specific
+collection, profiling, or sharing activity.
 
-If this policy is updated, the new version will be committed to the project's public GitHub repository and reflected in the next app update. The version date at the top of this document indicates when it was last changed.
+## 6. Changes to This Policy
 
-## 6. Contact
+If this policy changes, the updated version will be committed to this
+repository, included in the next app update, and dated at the top of this
+document.
 
-For privacy-related questions, open an issue on the project's GitHub repository.
+## 7. Contact
+
+For privacy-related questions, open an issue in the Cofrox project repository.

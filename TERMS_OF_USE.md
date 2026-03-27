@@ -1,55 +1,90 @@
 # Terms of Use
 
-*Last updated: March 25, 2026*
+*Last updated: March 27, 2026*
 
-These Terms of Use govern your use of Cofrox ("the App"). By installing or using the App, you agree to be bound by these terms in full.
+These Terms of Use govern your use of Cofrox ("the App"). By installing,
+running, or distributing the App, you agree to these Terms.
 
 ## 1. License to Use
 
-The developers of Cofrox grant you a personal, non-exclusive, non-transferable, revocable license to install and use the App on your Windows device for personal or commercial purposes, subject to these Terms.
+Subject to these Terms, the Cofrox developers grant you a personal,
+non-exclusive, non-transferable, revocable license to install and use the App
+on supported Windows devices.
 
 ## 2. Permitted Use
 
-You may use the App to convert files for which you hold the legal right to copy, modify, or distribute. You may use the App for personal, educational, research, or commercial purposes provided your use complies with all applicable laws.
+You may use the App to convert, inspect, or process files only when you have
+the legal right to do so. You may use the App for personal, educational,
+research, or commercial purposes, provided your use complies with all
+applicable laws and third-party license obligations.
 
 ## 3. Prohibited Use
 
 You may not use Cofrox to:
 
-- Convert, reproduce, or distribute copyrighted content without explicit authorization from the rights holder.
-- Convert, create, or distribute content that is illegal in your jurisdiction, including content that violates laws regarding obscenity, child safety, hate speech, or data protection.
-- Attempt to reverse engineer, decompile, or disassemble the proprietary portions of the App beyond what is expressly permitted by applicable law.
-- Circumvent, disable, or interfere with any security or integrity feature of the App.
-- Misrepresent the origin, authorship, or ownership of converted files.
+- convert or distribute copyrighted or restricted material without the required
+  authorization
+- process content that is illegal in your jurisdiction
+- bypass licensing, encryption, or access-control measures where doing so is
+  unlawful
+- misrepresent the source, authorship, or ownership of converted output
+- redistribute third-party binaries bundled with Cofrox without carrying
+  forward the required upstream notices and license terms
 
 ## 4. Open Source Components
 
-The App includes open source software components listed in Settings → Legal → Open Source Licenses. Your use of the App means you also accept the terms of those open source licenses where applicable. Where an open source license grants you rights that exceed those in these Terms, those open source license terms take precedence for that specific component.
+Cofrox includes or interoperates with third-party open-source components. Those
+components remain subject to their own license terms. Where an upstream license
+grants rights or imposes duties that differ from these Terms, the upstream
+license controls for that component.
 
 ## 5. No Warranty
 
-The App is provided "as is" without warranty of any kind. We make no warranties regarding the accuracy, reliability, or fitness for purpose of the App or its conversion outputs. You use the App entirely at your own risk.
+The App is provided "as is" and "as available" without warranty of any kind,
+express or implied, including any warranty of merchantability, fitness for a
+particular purpose, non-infringement, or accuracy of conversion output.
 
 ## 6. Limitation of Liability
 
-To the maximum extent permitted by applicable law, the developers shall not be liable for any damages arising from your use of the App, including but not limited to data loss, file corruption, or any direct, indirect, incidental, or consequential damages.
+To the maximum extent permitted by law, the Cofrox developers are not liable
+for loss of data, file corruption, lost profits, business interruption, or any
+indirect, incidental, special, exemplary, or consequential damages arising from
+the use of or inability to use the App.
 
-## 7. Updates and Changes
+## 7. User Responsibility
 
-The developers may update the App and these Terms at any time. The most current version of these Terms will always be available in Settings → Legal → Terms of Use and in the project's GitHub repository. Continued use of the App after any update constitutes your acceptance of the revised Terms.
+You are responsible for:
 
-## 8. Termination
+- keeping backups of original files before conversion
+- verifying output quality before relying on converted files in production
+- understanding the patent and licensing implications of codecs and formats in
+  your jurisdiction
+- complying with the license terms of bundled third-party components such as
+  FFmpeg, Pandoc, ImageMagick, and 7-Zip where applicable
 
-Your right to use the App terminates automatically if you violate any of these Terms. Upon termination, you must uninstall and cease all use of the App.
+## 8. Updates and Changes
 
-## 9. Severability
+The Cofrox developers may update the App and these Terms. The latest version of
+these Terms will be kept in this repository and may also be shown in-app.
+Continued use of the App after an update means you accept the revised Terms.
 
-If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.
+## 9. Termination
 
-## 10. Governing Law
+Your right to use the App ends automatically if you violate these Terms or any
+applicable third-party license terms associated with the components you
+redistribute.
 
-These Terms are governed by and construed in accordance with the laws of the jurisdiction in which the primary developer resides, without regard to conflict of law principles.
+## 10. Severability
 
-## 11. Contact
+If any provision of these Terms is held unenforceable, the remaining provisions
+will remain in effect.
 
-For questions about these Terms, open an issue on the project's GitHub repository.
+## 11. Governing Law
+
+These Terms are governed by the laws of the jurisdiction in which the primary
+developer resides, without regard to conflict-of-law rules.
+
+## 12. Contact
+
+For questions about these Terms, open an issue in the Cofrox project
+repository.

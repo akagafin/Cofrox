@@ -86,7 +86,8 @@ public sealed partial class SettingsViewModel(
     [RelayCommand]
     private async Task SaveAsync()
     {
-        var settings = new AppSettings
+        var existing = await settingsRepository.LoadAsync(CancellationToken.None);
+        var settings = existing with
         {
             OutputFolderPath = OutputFolderPath,
             DefaultVideoQuality = DefaultVideoQuality,

@@ -1,0 +1,37 @@
+This repository contains Cofrox application code under the MIT License.
+
+Cofrox also redistributes or interoperates with third-party software. See
+THIRD_PARTY_LICENSES.txt for the full inventory, license analysis, and
+redistribution obligations.
+
+Important notices for the current repository contents:
+
+1. FFmpeg
+   The bundled FFmpeg binary currently present under
+   src/Cofrox.App/Tools/ffmpeg was built with --enable-gpl and
+   --enable-version3, and with GPL-triggering libraries such as libx264 and
+   libx265. That binary is not an LGPL-only build. If you redistribute that
+   exact binary, you must satisfy the GPLv3 redistribution requirements for the
+   FFmpeg component, including providing the exact corresponding source and
+   build information for that binary.
+
+2. Pandoc
+   The bundled Pandoc executable is GPL-2.0-or-later software. If you
+   redistribute the binary, preserve its notices and make the corresponding
+   source code for the exact version available in the distribution workflow.
+
+3. ImageMagick
+   The bundled ImageMagick tools include their own LICENSE.txt and NOTICE.txt.
+   Preserve both files in any packaged distribution and keep attribution to
+   ImageMagick Studio LLC.
+
+4. 7-Zip
+   The bundled 7-Zip executable includes LGPL code, BSD-licensed code, and the
+   unRAR restriction for RAR decompression support. Preserve the upstream
+   license information with any redistribution.
+
+5. Optional external integrations
+   Ghostscript and LibreOffice are referenced by the codebase as optional
+   external tools, but they are not bundled in the current repository tree.
+   Do not redistribute them from Cofrox without separately carrying forward the
+   exact notices and license terms from the chosen upstream package.

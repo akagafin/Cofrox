@@ -11,7 +11,7 @@ public sealed class BundledToolLocator : IExternalToolLocator
         IEnumerable<string> candidates = logicalName.ToLowerInvariant() switch
         {
             "ffmpeg" => [Path.Combine(_toolRoot, "ffmpeg", "ffmpeg.exe")],
-            "pandoc" => [Path.Combine(_toolRoot, "pandoc", "pandoc.exe")],
+            "pandoc" => PandocCandidates(),
             "libreoffice" => LibreOfficeCandidates(),
             "magick" => [Path.Combine(_toolRoot, "imagemagick", "magick.exe")],
             "ghostscript" => GhostscriptCandidates(),
@@ -21,6 +21,23 @@ public sealed class BundledToolLocator : IExternalToolLocator
         };
 
         return candidates.FirstOrDefault(File.Exists);
+    }
+
+    private IEnumerable<string> PandocCandidates()
+    {
+        yield return Path.Combine(_toolRoot, "pandoc", "pandoc.exe");
+
+        var pandocRoot = Path.Combine(_toolRoot, "pandoc");
+        if (!Directory.Exists(pandocRoot))
+        {
+            yield break;
+        }
+
+        foreach (var candidate in Directory.EnumerateFiles(pandocRoot, "pandoc.exe", SearchOption.AllDirectories)
+                     .OrderByDescending(static file => File.GetLastWriteTimeUtc(file)))
+        {
+            yield return candidate;
+        }
     }
 
     private IEnumerable<string> LibreOfficeCandidates()

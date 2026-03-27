@@ -2,33 +2,53 @@
 
 ## Build and automated tests
 
-The repo includes `global.json` so the **.NET 10 SDK** (e.g. 10.0.201) is selected when multiple SDKs are installed. The WinUI app targets **x64** only: use `dotnet build .\Cofrox.sln -c Release -p:Platform=x64` (not `AnyCPU`).
+The repo includes `global.json` so the **.NET 10 SDK** (for example `10.0.201`)
+is selected when multiple SDKs are installed. The WinUI app targets **x64**
+only, so use `-p:Platform=x64` for CLI builds.
 
-- **Libraries and tests** (Domain, Core, Data, Converters, `Cofrox.Core.Tests`) build and run with `dotnet test` from the CLI.
-- **WinUI (`Cofrox.App`)** compiles XAML via `XamlCompiler.exe`. If `dotnet build` fails at the XamlCompiler step with no clear message, build and run **`Cofrox.App` from Visual Studio 2026** with the **.NET desktop development** workload and **Windows App SDK** support (this is the supported path for WinUI 3 on many setups).
+- **Libraries and tests** can be built and executed from the CLI.
+- **WinUI (`Cofrox.App`)** still relies on the WinUI/XAML toolchain that is
+  most reliably exercised from Visual Studio 2026 with the .NET desktop
+  development workload and Windows App SDK support.
 
-## Bundled Tools
+## Bundled tools
 
 Place offline conversion binaries under:
 
 - `src/Cofrox.App/Tools/ffmpeg/ffmpeg.exe`
-- `src/Cofrox.App/Tools/pandoc/pandoc.exe`
+- `src/Cofrox.App/Tools/pandoc/pandoc.exe` or a versioned subfolder that
+  contains `pandoc.exe`
 - `src/Cofrox.App/Tools/imagemagick/magick.exe`
 - `src/Cofrox.App/Tools/ghostscript/gswin64c.exe`
 - `src/Cofrox.App/Tools/7zip/7z.exe`
 - `src/Cofrox.App/Tools/libreoffice/program/soffice.exe` (optional)
 
+## License and compliance notes
+
+- The repo includes `LICENSE`, `NOTICE`, `THIRD_PARTY_LICENSES.txt`, and
+  `FFMPEG_COMPLIANCE.md`.
+- The FFmpeg binary currently present under `Tools/ffmpeg` is a GPL build, not
+  an LGPL-only build. Review `FFMPEG_COMPLIANCE.md` before any public release.
+- The Pandoc binary currently present under `Tools/pandoc` is GPL-2.0-or-later
+  software and adds corresponding-source obligations if bundled in a release.
+- ImageMagick's `LICENSE.txt` and `NOTICE.txt` should remain beside the shipped
+  binaries.
+
 ## Packaging
 
-- `WindowsPackageType=None` is enabled so the project can run unpackaged during development.
-- For Store-ready MSIX, add a packaging project in Visual Studio 2026 and point it at `src/Cofrox.App`.
+- `WindowsPackageType=None` is enabled so the project can run unpackaged during
+  development.
+- For Store-ready MSIX, add a packaging project in Visual Studio 2026 and point
+  it at `src/Cofrox.App`.
 - Keep the runtime target at `win-x64`.
+- Review [STORE_COMPLIANCE.md](./STORE_COMPLIANCE.md) and
+  [RELEASE_CHECKLIST.md](./RELEASE_CHECKLIST.md) before submission.
 
-## Verification Checklist
+## Verification checklist
 
 - Theme switches between Windows Light and Dark while the app is running.
 - Mica is active on the main window on Windows 11.
-- Drop zone accepts drag/drop and file picker import.
+- Drop zone accepts drag and drop and file picker import.
 - Conversion queue remains responsive while jobs run.
 - History persists to SQLite and can be cleared through the confirmation dialog.
 - Test on Windows 10 build `17763` and Windows 11 build `22000+`.

@@ -1,4 +1,5 @@
 using Cofrox.App.Services;
+using Cofrox.Application;
 using Cofrox.Converters;
 using Cofrox.Core;
 using Cofrox.Data;
@@ -50,6 +51,7 @@ public partial class App : Application
             {
                 services.AddCofroxCore();
                 services.AddCofroxData();
+                services.AddCofroxApplication();
                 services.AddCofroxConverters();
                 services.AddCofroxApp();
             });
